@@ -22,6 +22,9 @@ module.exports = defineConfig({
     },
     {
       resolve: "./src/modules/housekeeping",
+    },
+    {
+      resolve: "./src/modules/restaurant",
     }
   ]
 })
