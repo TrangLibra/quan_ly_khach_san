@@ -9,3 +9,4 @@ class BookingModuleService extends MedusaService({
 }) {}
 
 export default BookingModuleService
+

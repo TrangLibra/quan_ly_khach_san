@@ -65,3 +65,4 @@ export const Voucher = model.define("voucher", {
   times_used: model.number().default(0),
   status: model.enum(["Active", "Expired", "Disabled"]).default("Active"),
 })
+
