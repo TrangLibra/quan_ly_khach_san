@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "baseUrl": ".",
+    "paths": {
+      "@medusajs/framework/*": [
+        "medusa-backend/node_modules/@medusajs/framework/*"
+      ],
+      "@medusajs/framework": [
+        "medusa-backend/node_modules/@medusajs/framework"
+      ]
+    },
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true
+  },
+  "include": [
+    "medusa-backend/src/**/*"
+  ]
+}
+
