@@ -1,8 +1,8 @@
-# Multi-stage Dockerfile for React Vite Frontend
+# Dockerfile for React Vite Frontend
 FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install --legacy-peer-deps
 COPY . .
 ENV VITE_API_URL=/api
 RUN npm run build
