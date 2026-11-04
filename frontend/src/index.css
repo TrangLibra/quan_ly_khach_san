@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-family-primary: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-family-serif: 'Playfair Display', Georgia, serif;
+    --font-size-base: 16px;
+    --font-line-height-base: 1.5;
+    --font-weight-base: 400;
+
+    --color-text-primary: #373435;
+    --color-text-secondary: #203044;
+    --color-surface-base: #000000;
+    --color-surface-muted: #fafaf8;
+    --color-surface-raised: #b9a277;
+    --color-surface-strong: #fbf8f2;
+  }
+
+  html {
+    font-family: var(--font-family-primary);
+    font-size: var(--font-size-base);
+    line-height: var(--font-line-height-base);
+    color: var(--color-text-primary);
+    background-color: var(--color-surface-muted);
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #373435;
+    background-color: #fafaf8;
+    overscroll-behavior: none;
+  }
+
+  /* Accessibility & Focus-Visible Standards */
+  :focus-visible {
+    outline: 2px solid #b9a277;
+    outline-offset: 2px;
+  }
+
+  button, a, input, select, textarea {
+    transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    padding: 0;
+    margin-left: 1px;
+    opacity: 0.65;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #fafaf8;
+}
+::-webkit-scrollbar-thumb {
+  background: #b9a277;
+  border-radius: 9999px;
+}
+
+/* Material Symbols Ligature Rendering Support */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', 'Material Icons', sans-serif !important;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'liga';
+}
+
