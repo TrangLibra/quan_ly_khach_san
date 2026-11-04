@@ -28,3 +28,4 @@ export const AccessLog = model.define("smart_lock_access_log", {
     mappedBy: "access_logs",
   }),
 })
+

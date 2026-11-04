@@ -31,6 +31,9 @@ module.exports = defineConfig({
     },
     {
       resolve: "./src/modules/iot",
+    },
+    {
+      resolve: "./src/modules/staff_and_guest",
     }
   ]
 })

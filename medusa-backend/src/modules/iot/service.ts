@@ -7,3 +7,4 @@ class IotModuleService extends MedusaService({
 }) {}
 
 export default IotModuleService
+

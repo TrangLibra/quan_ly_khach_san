@@ -46,3 +46,4 @@ export const PaymentTransaction = model.define("payment_transaction", {
     mappedBy: "transactions",
   }),
 })
+

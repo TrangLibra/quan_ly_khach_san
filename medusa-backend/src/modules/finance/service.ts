@@ -8,3 +8,4 @@ class FinanceModuleService extends MedusaService({
 }) {}
 
 export default FinanceModuleService
+
