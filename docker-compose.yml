@@ -1,5 +1,5 @@
 services:
-  # 1. PostgreSQL Database for Medusa v2
+  # 1. PostgreSQL Database for Medusa v2 (Port đổi sang 5433 để tránh trùng DB khác)
   postgres:
     image: postgres:16-alpine
     container_name: grand_horizon_postgres
@@ -9,7 +9,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-supersecretpassword}
       POSTGRES_DB: ${POSTGRES_DB:-medusa_hotel}
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
@@ -24,7 +24,7 @@ services:
     container_name: grand_horizon_redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redisdata:/data
     healthcheck:
@@ -33,7 +33,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # 3. MedusaJS v2 Headless Backend Engine
+  # 3. MedusaJS v2 Headless Backend Engine (Port 9000)
   medusa-backend:
     build:
       context: ./medusa-backend
@@ -45,9 +45,9 @@ services:
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:-grand_horizon_secret_key_2026_luxury_hotel}
       COOKIE_SECRET: ${COOKIE_SECRET:-grand_horizon_cookie_secret_2026}
-      STORE_CORS: ${STORE_CORS:-http://localhost:5173,http://localhost:80}
-      ADMIN_CORS: ${ADMIN_CORS:-http://localhost:5173,http://localhost:9000,http://localhost:80}
-      AUTH_CORS: ${AUTH_CORS:-http://localhost:5173,http://localhost:9000,http://localhost:80}
+      STORE_CORS: ${STORE_CORS:-http://localhost:8080,http://localhost:5173}
+      ADMIN_CORS: ${ADMIN_CORS:-http://localhost:8080,http://localhost:9000,http://localhost:5173}
+      AUTH_CORS: ${AUTH_CORS:-http://localhost:8080,http://localhost:9000,http://localhost:5173}
     ports:
       - "9000:9000"
     depends_on:
@@ -56,7 +56,7 @@ services:
       redis:
         condition: service_healthy
 
-  # 4. React Vite Frontend & Nginx Proxy
+  # 4. React Vite Frontend & Nginx Proxy (ĐỔI SANG PORT 8080 ĐỂ KHÔNG TRÙNG PORT 80 CỦA WORDPRESS/APACHE)
   frontend:
     build:
       context: ./frontend
@@ -64,7 +64,7 @@ services:
     container_name: grand_horizon_frontend
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8080:80"
     depends_on:
       - medusa-backend
 
