@@ -18,7 +18,7 @@ export const MenuItem = model.define("menu_item", {
   id: model.id().primaryKey(),
   name: model.text(),
   description: model.text().nullable(),
-  price: model.bigInt(),
+  price: model.number(),
   image_url: model.text().nullable(),
   is_available: model.boolean().default(true),
   category: model.belongsTo(() => MenuCategory, {
@@ -33,7 +33,7 @@ export const FoodOrder = model.define("food_order", {
   table_id: model.text().nullable(),
   room_id: model.text().nullable(),
   guest_name: model.text().nullable(),
-  total_amount: model.bigInt().default(0),
+  total_amount: model.number().default(0),
   status: model.enum(["Placed", "Preparing", "Ready", "Served", "Cancelled"]).default("Placed"),
   payment_status: model.enum(["Unpaid", "Paid", "ChargedToRoom"]).default("Unpaid"),
 })

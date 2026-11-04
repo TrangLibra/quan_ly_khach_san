@@ -19,7 +19,7 @@ export const RoomType = model.define("room_type", {
   id: model.id().primaryKey(),
   name: model.text(),
   description: model.text().nullable(),
-  base_price: model.bigInt(),
+  base_price: model.number(),
   max_occupancy: model.number().default(2),
   adult_capacity: model.number().default(2),
   child_capacity: model.number().default(1),
@@ -56,8 +56,8 @@ export const PricingRule = model.define("pricing_rule", {
   rule_name: model.text(),
   start_date: model.dateTime(),
   end_date: model.dateTime(),
-  min_price: model.bigInt().nullable(),
-  max_price: model.bigInt().nullable(),
+  min_price: model.number().nullable(),
+  max_price: model.number().nullable(),
   price_multiplier: model.float().default(1.0),
   conditions: model.text().nullable(),
   priority: model.number().default(0),
@@ -66,4 +66,3 @@ export const PricingRule = model.define("pricing_rule", {
     mappedBy: "pricing_rules",
   }),
 })
-

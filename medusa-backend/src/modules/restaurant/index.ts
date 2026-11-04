@@ -6,3 +6,4 @@ export const RESTAURANT_MODULE = "restaurant"
 export default Module(RESTAURANT_MODULE, {
   service: RestaurantModuleService,
 })
+

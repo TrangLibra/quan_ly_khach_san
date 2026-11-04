@@ -4,7 +4,7 @@ export const MinibarProduct = model.define("minibar_product", {
   id: model.id().primaryKey(),
   name: model.text(),
   category: model.enum(["Drink", "Snack", "Amenity", "Other"]).default("Drink"),
-  price: model.bigInt(),
+  price: model.number(),
   stock: model.number().default(0),
   unit: model.text().default("lon"),
   status: model.enum(["Active", "Inactive"]).default("Active"),
@@ -16,7 +16,7 @@ export const MinibarInspection = model.define("minibar_inspection", {
   inspector_id: model.text(),
   stay_id: model.text().nullable(),
   inspection_time: model.dateTime(),
-  total_charge: model.bigInt().default(0),
+  total_charge: model.number().default(0),
   status: model.enum(["Draft", "Submitted", "PostedToFolio"]).default("Draft"),
 })
 

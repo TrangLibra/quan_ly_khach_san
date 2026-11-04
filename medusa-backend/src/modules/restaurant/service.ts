@@ -14,3 +14,4 @@ class RestaurantModuleService extends MedusaService({
 }) {}
 
 export default RestaurantModuleService
+

@@ -12,11 +12,11 @@ export const Booking = model.define("booking", {
   adults: model.number().default(1),
   children: model.number().default(0),
   room_quantity: model.number().default(1),
-  room_subtotal: model.bigInt().default(0),
-  surcharge_amount: model.bigInt().default(0),
-  discount_amount: model.bigInt().default(0),
-  total_amount: model.bigInt().default(0),
-  deposit_amount: model.bigInt().default(0),
+  room_subtotal: model.number().default(0),
+  surcharge_amount: model.number().default(0),
+  discount_amount: model.number().default(0),
+  total_amount: model.number().default(0),
+  deposit_amount: model.number().default(0),
   status: model.enum([
     "Pending",
     "Confirmed",
@@ -42,7 +42,7 @@ export const BookingRoomAllocation = model.define("booking_room_allocation", {
 
 export const Payment = model.define("payment", {
   id: model.id().primaryKey(),
-  amount: model.bigInt(),
+  amount: model.number(),
   currency_code: model.text().default("vnd"),
   payment_method: model.enum(["MoMo", "VNPay", "BankTransfer", "CreditCard", "Cash"]),
   status: model.enum(["Pending", "Completed", "Failed", "Refunded"]).default("Pending"),
@@ -56,13 +56,12 @@ export const Voucher = model.define("voucher", {
   id: model.id().primaryKey(),
   code: model.text(),
   discount_type: model.enum(["Percentage", "FixedAmount"]),
-  discount_value: model.bigInt(),
-  min_spend: model.bigInt().default(0),
-  max_discount: model.bigInt().nullable(),
+  discount_value: model.number(),
+  min_spend: model.number().default(0),
+  max_discount: model.number().nullable(),
   valid_from: model.dateTime(),
   valid_until: model.dateTime(),
   usage_limit: model.number().default(100),
   times_used: model.number().default(0),
   status: model.enum(["Active", "Expired", "Disabled"]).default("Active"),
 })
-

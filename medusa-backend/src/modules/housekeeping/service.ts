@@ -14,3 +14,4 @@ class HousekeepingModuleService extends MedusaService({
 }) {}
 
 export default HousekeepingModuleService
+

@@ -4,7 +4,7 @@ import {
   StepResponse,
   WorkflowResponse,
 } from "@medusajs/framework/workflows-sdk"
-import { BOOKING_MODULE } from "../modules/hotel"
+import { BOOKING_MODULE } from "../modules/booking"
 import BookingModuleService from "../modules/booking/service"
 
 export type CreateReservationInput = {
@@ -23,7 +23,7 @@ export type CreateReservationInput = {
 export const createReservationStep = createStep(
   "create-reservation-step",
   async (input: CreateReservationInput, { container }) => {
-    const bookingService: BookingModuleService = container.resolve("booking")
+    const bookingService: BookingModuleService = container.resolve(BOOKING_MODULE)
 
     const bookingCode = `BK-${Date.now().toString().slice(-6)}`
 
@@ -45,7 +45,7 @@ export const createReservationStep = createStep(
     return new StepResponse(booking, booking.id)
   },
   async (bookingId: string, { container }) => {
-    const bookingService: BookingModuleService = container.resolve("booking")
+    const bookingService: BookingModuleService = container.resolve(BOOKING_MODULE)
     await bookingService.deleteBookings(bookingId)
   }
 )
@@ -57,4 +57,3 @@ export const createReservationWorkflow = createWorkflow(
     return new WorkflowResponse(reservation)
   }
 )
-
