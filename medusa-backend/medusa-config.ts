@@ -16,6 +16,9 @@ module.exports = defineConfig({
   modules: [
     {
       resolve: "./src/modules/hotel",
+    },
+    {
+      resolve: "./src/modules/booking",
     }
   ]
 })
