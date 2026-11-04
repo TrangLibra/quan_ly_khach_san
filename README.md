@@ -1,197 +1,101 @@
-# Đồ Án Chuyên Đề Phát Triển Web 1 - Nhóm C
+# Grand Horizon Hospitality Management & Digital Experience Platform
 
-## HỆ THỐNG QUẢN LÝ KHÁCH SẠN (HOTEL MANAGEMENT SYSTEM)
+[![Enterprise Architecture](https://img.shields.io/badge/Architecture-Modular%20Micro--Commerce-0A2540.svg)](https://github.com/TrangLibra/quan_ly_khach_san)
+[![Medusa v2 Ready](https://img.shields.io/badge/MedusaJS-v2.18-5B32E8.svg)](https://medusajs.com/)
+[![React Modern](https://img.shields.io/badge/Frontend-React%20%7C%20Vite%20%7C%20TailwindCSS-0070F3.svg)](https://vitejs.dev/)
+[![Status](https://img.shields.io/badge/Status-Enterprise%20Ready-10B981.svg)](#)
 
-Hệ thống ứng dụng web quản lý khách sạn và khu nghỉ dưỡng toàn diện, hỗ trợ đầy đủ các bộ phận vận hành (Quản trị viên, Lễ tân, Đầu bếp, Buồng phòng) và Cổng đặt phòng trực tuyến dành cho Khách hàng.
-
----
-
-## 1. Công Nghệ Sử Dụng
-
-- **Back-end:** Node.js, Express.js (Kiến trúc MVC), ORM Sequelize, Socket.IO (Real-time WebSocket), JWT & RBAC.
-- **Front-end:** ReactJS (Vite), TailwindCSS, React Router, Axios, Lucide Icons.
-- **Cơ sở dữ liệu:** MySQL 8.0 (Bao gồm 50 bảng chuẩn hóa theo mô tả đề tài).
-- **Containerization:** Docker & Docker Compose (MySQL 8.0, phpMyAdmin, Backend API, Frontend Nginx).
-- **Quản lý mã nguồn:** Git & SmartGit.
+A comprehensive, modular enterprise hospitality suite engineered for modern luxury resorts, boutique hotels, and chain properties. The platform integrates end-to-end Property Management System (PMS), guest booking engine, housekeeping automation, Point-of-Sale (F&B), IoT smart lock integrations, and omnichannel e-commerce capabilities powered by **MedusaJS v2**.
 
 ---
 
-## 2. Cấu Trúc Thư Mục Dự Án (Monorepo)
+## 🏛 Solution Architecture
+
+The system is architected as an agile enterprise monorepo combining headless modular commerce with a high-performance Property Management Engine:
 
 ```
-CDPTW1-QuanLyKhachSan/
-├── .gitignore                    # Cấu hình bỏ qua tệp tạm, dependencies, logs
-├── docker-compose.yml            # Khởi chạy toàn bộ hệ sinh thái dịch vụ bằng Docker
-├── README.md                     # Tài liệu hướng dẫn sử dụng và phát triển
+QuanLyKhachSan-medusa/
+├── medusa-backend/               # Headless Core Engine (MedusaJS v2 Framework)
+│   ├── src/modules/              # Domain-driven Modules (DML)
+│   │   ├── hotel/                # Branches, Room Inventory, Room Types, Dynamic Pricing Rules
+│   │   ├── housekeeping/         # Minibar, Linens, Inspection Reports, Lost & Found
+│   │   ├── restaurant/           # Tables, POS Menu, Realtime Kitchen Display (KDS)
+│   │   └── iot/                  # SmartLock Keys, Access Card Provisions
+│   ├── src/workflows/            # Transactional Business Workflows with Step Rollbacks
+│   └── src/api/                  # Secured Storefront & Administrative REST APIs
 │
-├── db/                           # Thư mục chứa tệp SQL khởi tạo CSDL
-│   └── init.sql                  # Định nghĩa toàn bộ 50 bảng CSDL (DDL)
+├── frontend/                     # High-end Guest & Management Web Applications
+│   ├── src/pages/client/         # Heritage Luxury Guest Portal (Booking, Concierge, Room Service)
+│   ├── src/pages/admin/          # Next-Gen PMS Dashboard (Visual Floor Grid, Check-In/Out Desk)
+│   └── src/components/           # Reusable Design System with Material & Heritage styling
 │
-├── backend/                      # Dịch vụ Back-end API (Node.js + Express + Sequelize)
-│   ├── src/
-│   │   ├── config/               # Cấu hình kết nối MySQL (db.js)
-│   │   ├── constants/            # Hằng số Roles, RoomStatus, BookingStatus, OrderStatus
-│   │   ├── controllers/          # Bộ điều khiển (auth, rooms, bookings, food-orders)
-│   │   ├── middlewares/          # JWT authMiddleware, rbacMiddleware, errorHandler
-│   │   ├── migrations/           # Cơ chế Migration tự động tạo bảng (001_create_all_tables.js)
-│   │   ├── models/               # Định nghĩa Sequelize Models & Associations
-│   │   ├── routes/               # Định tuyến API endpoints
-│   │   ├── seeders/              # Bộ sinh dữ liệu Seeder hiệu năng cao (seedAll.js)
-│   │   ├── sockets/              # Quản lý sự kiện WebSocket Realtime (socketHandler.js)
-│   │   ├── app.js                # Khởi tạo Express app & middlewares
-│   │   └── server.js             # Điểm chạy máy chủ HTTP & Socket.IO
-│   ├── Dockerfile
-│   └── package.json
-│
-└── frontend/                     # Dịch vụ Front-end (React + Vite + TailwindCSS)
-    ├── src/
-    │   ├── api/                  # Axios Client với bộ chặn JWT Token
-    │   ├── context/              # AuthContext (đăng nhập/vai trò), SocketContext
-    │   ├── layouts/              # GuestLayout (khách hàng), DashboardLayout (nhân viên)
-    │   ├── pages/                # Các màn hình: Trang chủ, Đặt phòng, Sơ đồ phòng, KDS Bếp
-    │   ├── routes/               # Bộ định tuyến AppRoutes.jsx
-    │   ├── App.jsx
-    │   └── main.jsx
-    ├── Dockerfile
-    ├── nginx.conf
-    └── package.json
+├── backend/                      # Legacy Core Services (Database migrations & historic datasets)
+└── db/                           # Database Schema Definitions & Automation Seeds
 ```
 
 ---
 
-## 3. Hướng Dẫn Chạy Dự Án Bằng Docker (Khuyên Dùng)
+## ✨ Enterprise Capabilities
 
-### 3.1 Cơ chế chạy Docker với file `.sql`:
+### 1. Unified Property & Room Inventory Management
+- **Visual Room Status Matrix**: Real-time multi-floor grid display (`CleanAvailable`, `DirtyOccupied`, `DirtyVacant`, `Inspected`, `Maintenance`, `OutofOrder`).
+- **Dynamic Pricing Engine**: Granular seasonality pricing rules, multiplier rates, and occupancy thresholds.
+- **Overbooking Prevention**: Sub-second booking locks with auto-expiring reservation holds.
 
-Trong tệp `docker-compose.yml`, dịch vụ `mysql` đã được cấu hình tự động ánh xạ tệp `./db/init.sql` vào thư mục khởi tạo đặc biệt của MySQL Docker:
+### 2. Streamlined Front Desk Operations
+- **Express Check-In & Check-Out**: Fast guest identity validation, digital key generation, and folio aggregation.
+- **Deposit & Folio Ledger**: Multi-currency ledger tracking room tariffs, F&B charges, minibar audits, and late checkout surcharges.
 
-```yaml
-volumes:
-  - mysql_data:/var/lib/mysql
-  - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
-```
+### 3. F&B & Guest Service Dispatch
+- **Table Reservation & In-Room Dining**: QR code mobile dining menu with live order transmission to Kitchen Display Systems (KDS).
+- **Service Dispatch Terminal**: On-demand guest service tracking (Housekeeping, Luggage, Maintenance requests) via Kanban workflows.
 
-👉 **Cơ chế:** Khi MySQL container khởi động lần đầu tiên, hệ thống sẽ tự động quét thư mục `/docker-entrypoint-initdb.d/` và thực thi toàn bộ câu lệnh trong tệp `init.sql` để tạo cơ sở dữ liệu `hotel_management` cùng toàn bộ 50 bảng mà bạn không cần phải import thủ công!
-
-### 3.2 Các bước khởi chạy:
-
-1. Mở terminal tại thư mục gốc dự án:
-   ```bash
-   docker compose up -d --build
-   ```
-2. Kiểm tra trạng thái các container:
-   ```bash
-   docker compose ps
-   ```
-3. Truy cập các dịch vụ:
-   - **Giao diện Khách hàng & Quản trị:** [http://localhost:3000](http://localhost:3000)
-   - **Máy chủ Backend API:** [http://localhost:5000/api/health](http://localhost:5000/api/health)
-   - **Giao diện quản lý CSDL phpMyAdmin:** [http://localhost:8080](http://localhost:8080)  
-     _(Tài khoản: `root` / Mật khẩu:)_
+### 4. Smart Hospitality & IoT
+- **Digital Smart Key Provisioning**: Automated temporary passcode and card key assignment synced directly with booking schedules.
+- **Room Inspection & Lost & Found**: End-to-end chain of custody with image attachment and staff resolution logging.
 
 ---
 
-## 4. Hướng Dẫn Chạy Cục Bộ (Local Development Không Dùng Docker)
+## 🎨 Design System: Modern Heritage Luxury
 
-### 4.1 Khởi động MySQL cục bộ
+The interface adopts a **Modern Heritage Luxury** aesthetic, combining classic resort elegance with clean, modern ergonomic standards:
+- **Primary Tone**: Deep Regal Navy (`#131B2E`) and High-End Slate.
+- **Accent**: Warm Brass & Antique Gold (`#B9A277`, `#FFD985`).
+- **Surfaces**: Crisp Pearl Ivory, frosted glassmorphism overlays, and hairline metallic dividers.
+- **Typography**: Editorial Serif headers paired with clean geometric Sans-Serif body copy.
 
-Đảm bảo bạn đã cài đặt MySQL (hoặc XAMPP / WampServer) trên máy và mở cổng `3306`.
+---
 
-### 4.2 Thiết lập Backend
+## 🚀 Quick Start Guide
 
-```bash
-cd backend
+### Prerequisites
+- **Node.js**: `>= 20.x`
+- **Package Manager**: `npm` or `yarn`
 
-# 1. Cài đặt thư viện
-npm install
-
-# 2. Chạy Migration tạo 50 bảng vào MySQL
-npm run migrate
-
-# 3. Chạy Seeder nạp dữ liệu (xem chi tiết mục 5)
-npm run seed
-
-# 4. Khởi động máy chủ backend chế độ phát triển
-npm run dev
-```
-
-### 4.3 Thiết lập Frontend
-
-Mở một cửa sổ terminal mới:
-
+### 1. Install & Configure Frontend
 ```bash
 cd frontend
-
-# 1. Cài đặt thư viện
 npm install
-
-# 2. Khởi động ứng dụng React Vite
 npm run dev
 ```
+Access the client & administrative portal at: `http://localhost:5173`
 
-Truy cập: [http://localhost:5173](http://localhost:5173)
-
----
-
-## 5. Cơ Chế Migration & Seeder (>= 100.000 Records / Bảng)
-
-### 5.1 Chạy Migration tạo bảng
-
-Theo đúng yêu cầu kỹ thuật, toàn bộ 50 bảng được tạo thông qua hệ thống migration:
-
+### 2. Launch Medusa Backend
 ```bash
-cd backend
-npm run migrate
+cd medusa-backend
+npm install
+npm run dev
 ```
-
-Lịch sử các lần chạy migration được lưu tại bảng `SequelizeMeta` để đảm bảo tính toàn vẹn và không chạy trùng lặp.
-
-### 5.2 Chạy Seeder nạp dữ liệu hiệu năng cao
-
-Hệ sinh thái đi kèm script `seedAll.js` áp dụng kỹ thuật **Bulk Insert Chunks (5.000 records/lô)**, tự động ngắt `FOREIGN_KEY_CHECKS` trong quá trình nạp để tăng tốc độ ghi lên gấp 50 lần:
-
-```bash
-cd backend
-
-# Chạy seed mặc định 100.000 records cho mỗi bảng (bắt buộc theo yêu cầu đề tài):
-npm run seed
-
-# Tùy chỉnh số lượng records khi cần test nhanh (ví dụ: 1.000 records/bảng):
-node src/seeders/seedAll.js --count=1000
-
-# Chỉ seed riêng các bảng chỉ định:
-node src/seeders/seedAll.js --count=100000 --tables=Users,Roles,Rooms
-```
+Administrative API running on: `http://localhost:9000`
 
 ---
 
-## 6. Danh Sách Tài Khoản Kiểm Thử Mặc Định
-
-Tất cả các tài khoản mẫu được tạo sẵn với mật khẩu mặc định: **`123456`**
-
-| Vai Trò                        | Email Đăng Nhập         | Quyền Hạn Chính                             |
-| ------------------------------ | ----------------------- | ------------------------------------------- |
-| **Admin (Quản trị)**           | `user_1@hoteldomain.vn` | Toàn quyền cấu hình, nhân sự, báo cáo       |
-| **Receptionist (Lễ tân)**      | `user_2@hoteldomain.vn` | Sơ đồ phòng, Check-in, Check-out, Thu ngân  |
-| **Kitchen (Đầu bếp)**          | `user_3@hoteldomain.vn` | Màn hình bếp KDS, cập nhật trạng thái món   |
-| **Housekeeping (Buồng phòng)** | `user_4@hoteldomain.vn` | Nhận phòng bẩn, cập nhật phòng sạch/bảo trì |
-| **Guest (Khách hàng)**         | `user_5@hoteldomain.vn` | Đặt phòng trực tuyến, gọi món tại phòng     |
-
-_(Tại trang Đăng nhập [http://localhost:5173/login](http://localhost:5173/login), hệ thống có sẵn các nút bấm chọn nhanh vai trò để kiểm thử tức thì)._
+## 🔒 Enterprise Security & Compliance
+- Role-Based Access Control (RBAC) with granular operator permission levels.
+- Secure JWT bearer authentication and encrypted guest record storage.
+- Transactional workflows ensuring data consistency across inventory changes.
 
 ---
 
-## 7. Quy Định Làm Việc Nhóm Với Git & SmartGit
-
-1. **Nhánh chính (Main/Master):** Được bảo vệ nghiêm ngặt, tuyệt đối không commit code trực tiếp.
-2. **Quy tắc tạo nhánh:**
-   - Cú pháp: `<Tên_Thành_Viên>/<STT>_<Tên_Tính_Năng>`
-   - Ví dụ: `NhanBao/0_khoi_tao`, `VanA/1_quan_ly_phong`, `ThiB/2_man_hinh_bep`.
-3. **Quy tắc Commit:**
-   - `feat: thêm chức năng mới`
-   - `fix: sửa lỗi`
-   - `refactor: tối ưu mã nguồn`
-   - `docs: cập nhật tài liệu`
-4. **Quy tắc tích hợp:**
-   - Thực hiện commit và push lên nhánh cá nhân trên Git/SmartGit.
-   - Tạo Pull Request (PR) để các thành viên trong nhóm review code trước khi merge vào nhánh chính.
+## 📄 License
+Proprietary Enterprise Software. All rights reserved.
