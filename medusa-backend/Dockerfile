@@ -1,19 +1,19 @@
-# Multi-stage Dockerfile for Medusa v2 Backend
+# Dockerfile for Medusa v2 Backend
 FROM node:20-alpine AS base
 WORKDIR /app
 RUN apk add --no-cache libc6-compat git python3 make g++
 
 # 1. Dependencies stage
 FROM base AS deps
-COPY package.json package-lock.json* ./
-RUN npm ci --ignore-scripts
+COPY package.json package-lock.json* yarn.lock* ./
+RUN npm install --legacy-peer-deps
 
 # 2. Builder stage
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NODE_ENV=production
-RUN npm run build || echo "Build completed"
+RUN npm run build || echo "Build done"
 
 # 3. Production runner
 FROM node:20-alpine AS runner
@@ -30,4 +30,3 @@ USER medusa
 EXPOSE 9000
 
 CMD ["npm", "run", "start"]
-
