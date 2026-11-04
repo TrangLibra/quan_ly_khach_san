@@ -34,6 +34,9 @@ module.exports = defineConfig({
     },
     {
       resolve: "./src/modules/staff_and_guest",
+    },
+    {
+      resolve: "./src/modules/front_desk",
     }
   ]
 })
