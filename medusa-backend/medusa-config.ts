@@ -37,6 +37,9 @@ module.exports = defineConfig({
     },
     {
       resolve: "./src/modules/front_desk",
+    },
+    {
+      resolve: "./src/modules/services",
     }
   ]
 })
