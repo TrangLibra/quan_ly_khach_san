@@ -10,3 +10,4 @@ class HotelModuleService extends MedusaService({
 }) {}
 
 export default HotelModuleService
+

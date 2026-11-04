@@ -42,3 +42,4 @@ export const updateRoomStatusWorkflow = createWorkflow(
     return new WorkflowResponse(result)
   }
 )
+

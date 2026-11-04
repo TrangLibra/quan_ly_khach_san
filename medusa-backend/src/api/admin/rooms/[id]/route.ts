@@ -39,3 +39,4 @@ export async function DELETE(req: MedusaRequest, res: MedusaResponse) {
 
   res.json({ message: "Room marked as deleted successfully", id })
 }
+

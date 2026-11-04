@@ -32,3 +32,4 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
 
   res.status(201).json({ room_type: roomType })
 }
+

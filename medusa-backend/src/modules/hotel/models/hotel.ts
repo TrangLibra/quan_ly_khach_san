@@ -66,3 +66,4 @@ export const PricingRule = model.define("pricing_rule", {
     mappedBy: "pricing_rules",
   }),
 })
+
