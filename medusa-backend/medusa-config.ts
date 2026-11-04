@@ -43,6 +43,9 @@ module.exports = defineConfig({
     },
     {
       resolve: "./src/modules/marketing",
+    },
+    {
+      resolve: "./src/modules/inspection_and_linen",
     }
   ]
 })
