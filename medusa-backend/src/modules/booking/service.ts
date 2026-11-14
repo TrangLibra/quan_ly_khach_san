@@ -1,10 +1,10 @@
 import { MedusaService } from "@medusajs/framework/utils"
-import { Booking, BookingRoomAllocation, Payment, Voucher } from "./models/booking"
+import { Booking, BookingRoomAllocation, BookingPayment, Voucher } from "./models/booking"
 
 class BookingModuleService extends MedusaService({
   Booking,
   BookingRoomAllocation,
-  Payment,
+  BookingPayment,
   Voucher,
 }) {}
 
