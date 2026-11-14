@@ -1,8 +1,7 @@
 import { MedusaRequest, MedusaResponse } from "@medusajs/framework/http"
-import StaffAndGuestModuleService from "../../../modules/staff_and_guest/service"
 
 export async function POST(req: MedusaRequest, res: MedusaResponse) {
-  const service: StaffAndGuestModuleService = req.scope.resolve("staff_and_guest")
+  const service = req.scope.resolve("staff_and_guest") as any
   const { email, role } = req.body as { email: string; role?: string }
 
   if (!email) {
@@ -10,12 +9,19 @@ export async function POST(req: MedusaRequest, res: MedusaResponse) {
   }
 
   // Tra cứu thông tin nhân sự trong Staff module
-  const [staffList] = await service.listAndCountStaffs({ email })
+  const listStaffFn = service.listAndCountStaff ? service.listAndCountStaff.bind(service) : service.listAndCountStaffs?.bind(service)
+  const createStaffFn = service.createStaff ? service.createStaff.bind(service) : service.createStaffs?.bind(service)
+
+  let staffList = []
+  if (listStaffFn) {
+    const [result] = await listStaffFn({ email })
+    staffList = result || []
+  }
 
   let staff = staffList[0]
-  if (!staff) {
+  if (!staff && createStaffFn) {
     // Nếu chưa có, hỗ trợ tạo phiên đăng nhập quản trị viên mặc định
-    staff = await service.createStaffs({
+    staff = await createStaffFn({
       staff_code: `STF-${Date.now().toString().slice(-4)}`,
       full_name: email.split("@")[0].toUpperCase(),
       email,
