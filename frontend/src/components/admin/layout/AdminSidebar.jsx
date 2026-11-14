@@ -434,24 +434,24 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
     <aside
       className={`fixed left-0 top-0 h-screen ${
         isCollapsed ? "w-20" : "w-72"
-      } bg-surface-container-lowest z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-all duration-300 ease-in-out border-r border-outline-variant/20`}
+      } bg-[#FAF8F5]est z-50 shadow-[0_1px_8px_rgba(0,0,0,0.04)] transition-all duration-300 ease-in-out border-r border-[#E0D7C6]`}
     >
       <div className="h-full flex flex-col justify-between overflow-hidden">
         {/* Top Brand */}
         <div
           className={`h-16 ${
             isCollapsed ? "px-2 justify-center" : "px-space-md justify-start"
-          } flex items-center bg-surface-container-low flex-shrink-0 border-b border-outline-variant/20`}
+          } flex items-center bg-[#FAF8F5] flex-shrink-0 border-b border-[#E0D7C6]`}
         >
           {isCollapsed ? (
-            <div className="w-9 h-9 rounded-lg bg-admin-primary flex items-center justify-center text-on-admin-primary shadow-[0_0_10px_rgba(16,185,129,0.25)]">
+            <div className="w-9 h-9 rounded-lg bg-[#B9A277] flex items-center justify-center text-on-admin-primary shadow-[0_0_10px_rgba(16,185,129,0.25)]">
               <span className="material-symbols-outlined text-[20px]">
                 corporate_fare
               </span>
             </div>
           ) : (
             <div className="flex items-center gap-space-sm overflow-hidden">
-              <div className="w-8 h-8 rounded-lg bg-admin-primary flex items-center justify-center text-on-admin-primary shadow-[0_0_10px_rgba(16,185,129,0.25)] flex-shrink-0">
+              <div className="w-8 h-8 rounded-lg bg-[#B9A277] flex items-center justify-center text-on-admin-primary shadow-[0_0_10px_rgba(16,185,129,0.25)] flex-shrink-0">
                 <span className="material-symbols-outlined text-[20px]">
                   corporate_fare
                 </span>
@@ -460,7 +460,7 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                 <span className="font-headline-sm text-label-md uppercase tracking-wider text-on-surface font-bold truncate">
                   Grand Horizon
                 </span>
-                <span className="font-label-sm text-label-sm uppercase tracking-widest text-admin-primary font-semibold truncate">
+                <span className="font-label-sm text-label-sm uppercase tracking-widest text-[#9A7633] font-semibold truncate">
                   Resort &amp; Suites • PMS
                 </span>
               </div>
@@ -470,7 +470,7 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
 
         {/* Search & Group Controls (only when expanded) */}
         {!isCollapsed && (
-          <div className="px-space-md pt-space-sm pb-1 flex-shrink-0 border-b border-outline-variant/10">
+          <div className="px-space-md pt-space-sm pb-1 flex-shrink-0 border-b border-[#EAE3D2]">
             <div className="relative">
               <span className="material-symbols-outlined text-[16px] text-on-surface-variant absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
                 search
@@ -480,7 +480,7 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Tìm nhanh chức năng..."
-                className="w-full pl-8 pr-7 py-1.5 text-xs rounded-lg bg-surface-container border border-outline-variant/20 text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-admin-primary transition-colors"
+                className="w-full pl-8 pr-7 py-1.5 text-xs rounded-lg bg-[#EDE6D6] border border-[#E0D7C6] text-on-surface placeholder:text-on-surface-variant/60 focus:outline-none focus:border-admin-primary transition-colors"
               />
               {searchTerm && (
                 <button
@@ -502,7 +502,7 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
               <button
                 type="button"
                 onClick={expandOrCollapseAll}
-                className="text-[10px] text-admin-primary hover:underline font-semibold cursor-pointer"
+                className="text-[10px] text-[#9A7633] hover:underline font-semibold cursor-pointer"
               >
                 {visibleGroups.some((g) => openGroups[g.id])
                   ? "Thu gọn nhóm"
@@ -541,8 +541,8 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                       className={({ isActive }) =>
                         `flex items-center justify-center w-11 h-10 mx-auto rounded-xl transition-all duration-200 group no-underline relative ${
                           isActive
-                            ? "bg-admin-primary text-[#002114] font-bold shadow-sm"
-                            : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                            ? "bg-[#B9A277] text-[#002114] font-bold shadow-sm"
+                            : "text-on-surface-variant hover:bg-[#EDE6D6]-high hover:text-on-surface"
                         }`
                       }
                     >
@@ -564,7 +564,7 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
             return (
               <div
                 key={group.id}
-                className="rounded-xl bg-surface-container-low/50 border border-outline-variant/10 overflow-hidden"
+                className="rounded-xl bg-[#FAF8F5]/50 border border-[#EAE3D2] overflow-hidden"
               >
                 {/* Group Accordion Header */}
                 <button
@@ -572,15 +572,15 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                   onClick={() => toggleGroup(group.id)}
                   className={`w-full flex items-center justify-between px-3 py-2 text-left transition-colors cursor-pointer select-none ${
                     hasActiveChild
-                      ? "bg-admin-primary/10 text-admin-primary font-bold"
-                      : "text-on-surface hover:bg-surface-container-high/60 font-semibold"
+                      ? "bg-[#B9A277]/10 text-[#9A7633] font-bold"
+                      : "text-on-surface hover:bg-[#EDE6D6]-high/60 font-semibold"
                   }`}
                 >
                   <div className="flex items-center gap-2 min-w-0">
                     <span
                       className={`material-symbols-outlined text-[18px] flex-shrink-0 ${
                         hasActiveChild
-                          ? "text-admin-primary"
+                          ? "text-[#9A7633]"
                           : "text-on-surface-variant"
                       }`}
                     >
@@ -594,8 +594,8 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                     <span
                       className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
                         hasActiveChild
-                          ? "bg-admin-primary text-[#002114]"
-                          : "bg-surface-container text-on-surface-variant"
+                          ? "bg-[#B9A277] text-[#002114]"
+                          : "bg-[#EDE6D6] text-on-surface-variant"
                       }`}
                     >
                       {group.items.length}
@@ -622,8 +622,8 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                         className={({ isActive }) =>
                           `flex items-center gap-2.5 pl-3 pr-2.5 py-1.5 rounded-lg transition-all duration-150 group no-underline relative ${
                             isActive
-                              ? "bg-admin-primary text-[#002114] font-bold shadow-xs"
-                              : "text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface"
+                              ? "bg-[#B9A277] text-[#002114] font-bold shadow-xs"
+                              : "text-on-surface-variant hover:bg-[#EDE6D6]-high hover:text-on-surface"
                           }`
                         }
                       >
@@ -654,11 +654,11 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
         </div>
 
         {/* User Card & Logout Bottom */}
-        <div className="border-t border-outline-variant/20 p-space-sm bg-surface-container-low flex-shrink-0">
+        <div className="border-t border-[#E0D7C6] p-space-sm bg-[#FAF8F5] flex-shrink-0">
           {!isCollapsed ? (
             <div className="flex flex-col gap-2">
               <div className="flex items-center gap-2.5 px-1 py-1">
-                <div className="w-8 h-8 rounded-full bg-admin-primary text-[#002114] font-bold text-xs flex items-center justify-center flex-shrink-0">
+                <div className="w-8 h-8 rounded-full bg-[#B9A277] text-[#002114] font-bold text-xs flex items-center justify-center flex-shrink-0">
                   {user?.avatarUrl ? (
                     <img
                       src={user.avatarUrl}
@@ -705,7 +705,7 @@ const AdminSidebar = ({ isCollapsed = false, toggleSidebar }) => {
                   navigate("/login");
                 }}
                 title="Đăng xuất"
-                className="w-10 h-10 rounded-xl bg-surface-container hover:bg-error/10 text-on-surface-variant hover:text-error flex items-center justify-center transition-colors cursor-pointer"
+                className="w-10 h-10 rounded-xl bg-[#EDE6D6] hover:bg-error/10 text-on-surface-variant hover:text-error flex items-center justify-center transition-colors cursor-pointer"
               >
                 <span className="material-symbols-outlined text-[20px]">
                   logout
