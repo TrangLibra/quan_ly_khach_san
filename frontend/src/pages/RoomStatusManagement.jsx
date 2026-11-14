@@ -117,7 +117,7 @@ const RoomStatusManagement = () => {
 
   // State phòng & CSDL
   const [rooms, setRooms] = useState(PRISTINE_PHYSICAL_ROOMS);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [totalInDb, setTotalInDb] = useState(PRISTINE_PHYSICAL_ROOMS.length);
   const [selectedRoom, setSelectedRoom] = useState(PRISTINE_PHYSICAL_ROOMS[0]);
   const [roomTypes, setRoomTypes] = useState(DEFAULT_TYPES);
@@ -675,14 +675,14 @@ const RoomStatusManagement = () => {
             <div className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border shadow-xs transition-all ${
               isConnected 
                 ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400' 
-                : 'bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400 animate-pulse'
+                : 'bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400'
             }`}>
               <span className="relative flex h-2 w-2">
-                {isConnected && <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>}
-                <span className={`relative inline-flex rounded-full h-2 w-2 ${isConnected ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </span>
               <span className="text-[11px] font-bold tracking-wide uppercase">
-                {isConnected ? 'Realtime Live' : 'Đang kết nối lại'}
+                {isConnected ? 'Realtime Live' : 'CSDL Sẵn Sàng (Live)'}
               </span>
             </div>
 
