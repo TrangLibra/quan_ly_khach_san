@@ -1,43 +1,195 @@
-import React from 'react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../../context/AuthContext";
 
-const AdminHeader = () => {
+const AdminHeader = ({ isCollapsed = false, toggleSidebar }) => {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
+
+  // Badge màu theo vai trò (Spec 3 - Wireframe 6.1: Admin đỏ đậm, Lễ tân xanh dương, Bếp cam, Dọn phòng xanh lá)
+  const getRoleBadgeStyle = (roleName) => {
+    switch (roleName) {
+      case "Admin":
+        return "bg-red-900/60 text-red-200 border-red-700/60";
+      case "Receptionist":
+        return "bg-blue-900/60 text-blue-200 border-blue-700/60";
+      case "Kitchen":
+        return "bg-amber-900/60 text-amber-200 border-amber-700/60";
+      case "Housekeeping":
+        return "bg-emerald-900/60 text-emerald-200 border-emerald-700/60";
+      default:
+        return "bg-slate-800 text-slate-300 border-slate-700";
+    }
+  };
+
+  const getRoleDisplayName = (roleName) => {
+    switch (roleName) {
+      case "Admin":
+        return "Quản Trị Viên";
+      case "Receptionist":
+        return "Lễ Tân";
+      case "Kitchen":
+        return "Bếp / F&B";
+      case "Housekeeping":
+        return "Dọn Phòng";
+      default:
+        return roleName || "Nhân Viên";
+    }
+  };
+
   return (
-    <header className="fixed top-0 left-72 right-0 h-16 bg-[#0f172a]/85 backdrop-blur-xl border-b border-[#c5a059]/20 z-40 flex items-center justify-between px-8 shadow-lg shadow-black/20">
-      <div className="flex items-center gap-4">
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1e293b]/80 border border-[#c5a059]/30 rounded-lg shadow-inner">
-          <span className="material-symbols-outlined text-[18px] text-[#dfba73]">pin_drop</span>
-          <span className="text-xs font-semibold text-slate-200 tracking-wide">Grand Horizon Resort & Sanctuary</span>
+    <header
+      className={`fixed top-0 ${
+        isCollapsed ? "left-20" : "left-72"
+      } right-0 h-16 bg-[#FAF8F5]/95 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-space-lg transition-all duration-300 ease-in-out border-b border-[#E0D7C6]`}
+    >
+      <div className="flex items-center gap-space-md">
+        {toggleSidebar && (
+          <button
+            onClick={toggleSidebar}
+            type="button"
+            title={
+              isCollapsed
+                ? "Mở rộng thanh điều hướng"
+                : "Thu gọn thanh điều hướng"
+            }
+            className="w-9 h-9 rounded-lg bg-surface-container flex items-center justify-center text-on-surface-variant hover:bg-surface-container-high hover:text-[#9A7633] active:scale-95 transition-all flex-shrink-0 cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[20px]">
+              {isCollapsed ? "menu" : "menu_open"}
+            </span>
+          </button>
+        )}
+        <div className="hidden md:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container rounded-lg border border-outline-variant/10">
+          <span className="material-symbols-outlined text-[18px] text-[#9A7633]">
+            verified_user
+          </span>
+          <span className="font-body-sm text-body-sm text-on-surface font-medium">
+            Hệ Thống Phân Quyền RBAC • Cơ Sở Dữ Liệu Trực Tiếp
+          </span>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#1e293b]/60 border border-slate-700/60 rounded-lg">
-          <span className="material-symbols-outlined text-[18px] text-slate-400">schedule</span>
-          <span className="text-xs text-slate-300 font-medium">Ca Trực Hiện Tại: 14:00 - 22:00</span>
-        </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 bg-[#10b981]/10 border border-[#10b981]/30 rounded-lg">
-          <span className="text-[11px] text-[#10b981] uppercase font-bold tracking-wider">Công Suất:</span>
-          <span className="text-xs font-bold text-[#10b981]">88%</span>
-        </div>
-        <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span className="text-[10px] text-emerald-300 font-bold tracking-widest uppercase">Medusa Live</span>
+        <div className="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs bg-surface-container-low rounded-full">
+          <span className="w-2 h-2 rounded-full bg-[#B9A277]-container shadow-[0_0_8px_rgba(16,185,129,0.5)]"></span>
+          <span className="font-label-sm text-label-sm text-on-surface font-semibold uppercase tracking-wider">
+            Terminal Live
+          </span>
         </div>
       </div>
 
-      <div className="flex items-center gap-4">
-        <button className="relative w-10 h-10 rounded-xl bg-[#1e293b]/80 border border-slate-700/60 flex items-center justify-center text-slate-300 hover:text-[#dfba73] hover:border-[#c5a059]/50 transition-all shadow-sm" type="button">
-          <span className="material-symbols-outlined text-[20px]">notifications</span>
-          <span className="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-amber-400 ring-2 ring-[#0f172a]"></span>
+      <div className="flex items-center gap-space-md">
+        {/* Nút về trang Client */}
+        <button
+          onClick={() => navigate("/")}
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-surface-container text-on-surface-variant hover:text-[#9A7633] hover:bg-surface-container-high text-xs font-semibold border border-outline-variant/15 transition-all cursor-pointer"
+          title="Xem Cổng Khách Hàng"
+        >
+          <span className="material-symbols-outlined text-[16px]">
+            visibility
+          </span>
+          <span>Xem Cổng Khách</span>
         </button>
 
-        <div className="flex items-center gap-3 pl-2 border-l border-slate-800">
-          <div className="flex flex-col text-right">
-            <span className="text-sm font-semibold text-slate-100 tracking-tight">Ban Điều Hành Khách Sạn</span>
-            <span className="text-[11px] text-[#dfba73] font-medium">Executive Admin</span>
-          </div>
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#9a7633] via-[#c5a059] to-[#dfba73] p-[1.5px] shadow-md shadow-[#c5a059]/20">
-            <div className="w-full h-full bg-[#0f172a] rounded-[10px] flex items-center justify-center">
-              <span className="material-symbols-outlined text-[#dfba73] text-[20px]">person</span>
+        {/* User profile dropdown */}
+        <div className="relative">
+          <div
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="flex items-center gap-space-sm pl-space-sm cursor-pointer select-none py-1 px-2 rounded-xl hover:bg-surface-container-high transition-colors"
+          >
+            <div className="flex flex-col text-right">
+              <span className="font-label-md text-label-md text-on-surface font-bold truncate max-w-[160px]">
+                {user?.fullName || "Người Dùng"}
+              </span>
+              <div className="flex justify-end">
+                <span
+                  className={`text-[10px] font-bold px-1.5 py-0.2 rounded border ${getRoleBadgeStyle(
+                    user?.roleName
+                  )} uppercase tracking-wider`}
+                >
+                  {getRoleDisplayName(user?.roleName)}
+                </span>
+              </div>
             </div>
+            <div className="w-9 h-9 rounded-full bg-[#B9A277] flex items-center justify-center font-bold text-white shadow-sm text-sm overflow-hidden border border-admin-primary/40">
+              {user?.avatarUrl ? (
+                <img
+                  src={user.avatarUrl}
+                  alt="Avatar"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <span>
+                  {(user?.fullName || "NV").substring(0, 2).toUpperCase()}
+                </span>
+              )}
+            </div>
+            <span className="material-symbols-outlined text-[16px] text-on-surface-variant">
+              expand_more
+            </span>
           </div>
+
+          {/* Dropdown Menu */}
+          {showDropdown && (
+            <div className="absolute right-0 mt-2 w-56 bg-surface-container-lowest border border-outline-variant/30 rounded-xl shadow-xl py-2 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+              <div className="px-4 py-2 border-b border-[#E0D7C6]">
+                <p className="text-xs text-on-surface-variant font-medium">
+                  Đang đăng nhập bằng
+                </p>
+                <p className="text-sm font-bold text-on-surface truncate">
+                  {user?.email || user?.username}
+                </p>
+                <p className="text-[11px] text-[#9A7633] mt-0.5">
+                  Tên đăng nhập: @{user?.username || "user"}
+                </p>
+              </div>
+
+              <div className="py-1">
+                <button
+                  onClick={() => {
+                    setShowDropdown(false);
+                    navigate("/profile");
+                  }}
+                  className="w-full text-left px-4 py-2 text-xs font-medium text-on-surface hover:bg-surface-container flex items-center gap-2 cursor-pointer transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    account_circle
+                  </span>
+                  <span>Hồ Sơ Cá Nhân</span>
+                </button>
+                {(user?.roleId === 1 || user?.roleName === "Admin") && (
+                  <button
+                    onClick={() => {
+                      setShowDropdown(false);
+                      navigate("/admin/staff");
+                    }}
+                    className="w-full text-left px-4 py-2 text-xs font-medium text-on-surface hover:bg-surface-container flex items-center gap-2 cursor-pointer transition-colors"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">
+                      manage_accounts
+                    </span>
+                    <span>Quản Lý Tài Khoản (Admin)</span>
+                  </button>
+                )}
+              </div>
+
+              <div className="border-t border-[#E0D7C6] pt-1">
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-xs font-semibold text-error hover:bg-error/10 flex items-center gap-2 cursor-pointer transition-colors"
+                >
+                  <span className="material-symbols-outlined text-[18px]">
+                    logout
+                  </span>
+                  <span>Đăng Xuất Khỏi Hệ Thống</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </header>
