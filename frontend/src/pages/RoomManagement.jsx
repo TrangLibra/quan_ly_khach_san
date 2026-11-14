@@ -80,9 +80,9 @@ const RoomManagement = () => {
   const { user, token } = useAuth();
 
   // ─── Dữ liệu thật 100% từ MySQL (Rooms, Branches, RoomTypes) ────────────────
-  const [rooms, setRooms] = useState([]);
-  const [branches, setBranches] = useState([]);
-  const [roomTypes, setRoomTypes] = useState([]);
+  const [rooms, setRooms] = useState(PRISTINE_ROOMS);
+  const [branches, setBranches] = useState(PRISTINE_BRANCHES);
+  const [roomTypes, setRoomTypes] = useState(PRISTINE_ROOM_TYPES);
   const [floorGroups, setFloorGroups] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

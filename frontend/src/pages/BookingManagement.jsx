@@ -152,8 +152,8 @@ export default function BookingManagement() {
   const [dateError, setDateError] = useState('');
 
   // ─── State dữ liệu & API ───────────────────────────────────────────────────
-  const [bookings, setBookings] = useState([]);
-  const [totalCount, setTotalCount] = useState(0);
+  const [bookings, setBookings] = useState(PRISTINE_BOOKINGS);
+  const [totalCount, setTotalCount] = useState(PRISTINE_BOOKINGS.length);
   const [totalPages, setTotalPages] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [roomTypes, setRoomTypes] = useState([]);

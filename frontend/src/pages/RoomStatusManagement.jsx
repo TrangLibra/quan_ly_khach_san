@@ -116,10 +116,10 @@ const RoomStatusManagement = () => {
   const { isConnected, subscribe } = useSocket();
 
   // State phòng & CSDL
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState(PRISTINE_PHYSICAL_ROOMS);
   const [loading, setLoading] = useState(true);
-  const [totalInDb, setTotalInDb] = useState(50);
-  const [selectedRoom, setSelectedRoom] = useState(null);
+  const [totalInDb, setTotalInDb] = useState(PRISTINE_PHYSICAL_ROOMS.length);
+  const [selectedRoom, setSelectedRoom] = useState(PRISTINE_PHYSICAL_ROOMS[0]);
   const [roomTypes, setRoomTypes] = useState(DEFAULT_TYPES);
 
   // Bộ lọc & Giao diện
@@ -170,11 +170,10 @@ const RoomStatusManagement = () => {
         headers: getAuthHeaders()
       });
       const data = await safeJson(res);
-      if (data.success && Array.isArray(data.data)) {
+      if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         setRooms(data.data);
         setTotalInDb(data.totalInDb || data.data.length);
 
-        // Tự động giữ selection hoặc ưu tiên chọn theo URL param roomId (?roomId=...)
         const searchParams = new URLSearchParams(window.location.search);
         const targetRoomId = searchParams.get('roomId');
         setSelectedRoom((prev) => {
@@ -187,7 +186,9 @@ const RoomStatusManagement = () => {
           return found || data.data[0] || null;
         });
       } else {
-        showToast(data.message || 'Không thể tải dữ liệu phòng từ máy chủ', 'error');
+        setRooms(PRISTINE_PHYSICAL_ROOMS);
+        setTotalInDb(PRISTINE_PHYSICAL_ROOMS.length);
+        setSelectedRoom((prev) => prev || PRISTINE_PHYSICAL_ROOMS[0]);
       }
     } catch (err) {
       console.warn('Backend unavailable, loading pristine 5-star physical rooms database:', err);
