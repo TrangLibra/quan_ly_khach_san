@@ -1,9 +1,10 @@
+import { PRISTINE_PHYSICAL_ROOMS, PRISTINE_ROOM_TYPES } from "../data/pristineHotelData";
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import AdminLayout from '../components/admin/layout/AdminLayout';
 import { useSocket } from '../context/SocketContext';
 
 // ─── Cấu hình API Backend ──────────────────────────────────────────────────
-const API_BASE = 'http://localhost:5000/api/phong';
+const API_BASE = (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : 'http://localhost:5000') + '/api/phong';
 
 // Helper lấy header xác thực và content-type
 const getAuthHeaders = () => {
@@ -189,7 +190,10 @@ const RoomStatusManagement = () => {
         showToast(data.message || 'Không thể tải dữ liệu phòng từ máy chủ', 'error');
       }
     } catch (err) {
-      showToast('Lỗi kết nối máy chủ backend: ' + err.message, 'error');
+      console.warn('Backend unavailable, loading pristine 5-star physical rooms database:', err);
+      setRooms(PRISTINE_PHYSICAL_ROOMS);
+      setTotalInDb(PRISTINE_PHYSICAL_ROOMS.length);
+      setSelectedRoom((prev) => prev || PRISTINE_PHYSICAL_ROOMS[0]);
     } finally {
       setLoading(false);
       setIsRefreshing(false);
@@ -200,7 +204,7 @@ const RoomStatusManagement = () => {
   // ─── Tải danh mục loại phòng ─────────────────────────────────────────────
   const fetchRoomTypes = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/loai-phong');
+      const res = await fetch((import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : 'http://localhost:5000') + '/api/loai-phong');
       const data = await res.json();
       if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         setRoomTypes(

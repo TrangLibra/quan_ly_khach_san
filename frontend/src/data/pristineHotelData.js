@@ -285,3 +285,43 @@ export const PRISTINE_SERVICES = [
   { ServiceId: 6, CategoryId: 3, ServiceCode: 'SVC-LDY-001', ServiceName: 'Giặt hấp âu phục cao cấp & Tiệt trùng', Price: 350000.00, Unit: 'Bộ', CategoryName: 'Giặt Ủi & Hấp Cao Cấp', Status: 'Active' },
   { ServiceId: 7, CategoryId: 4, ServiceCode: 'SVC-TRN-001', ServiceName: 'Đón tiễn sân bay Phú Quốc xe Mercedes Maybach', Price: 1200000.00, Unit: 'Lượt', CategoryName: 'Vận Chuyển Concierge', Status: 'Active' }
 ];
+
+
+export const PRISTINE_PHYSICAL_ROOMS = [
+  // Tầng 1
+  { id: 1, so_phong: '101', tang: 1, khu: 'A', ma_loai: 'RT-1', ma_khoa: 'LOCK-101', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng 101 view vườn & hồ bơi' },
+  { id: 2, so_phong: '102', tang: 1, khu: 'A', ma_loai: 'RT-1', ma_khoa: 'LOCK-102', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng 102 view hướng biển' },
+  { id: 3, so_phong: '103', tang: 1, khu: 'A', ma_loai: 'RT-4', ma_khoa: 'LOCK-103', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Garden Tropical Bungalow', gia_ngay: 3200000, ghi_chu: 'Bungalow 103 khuôn viên nhiệt đới' },
+  { id: 4, so_phong: '104', tang: 1, khu: 'A', ma_loai: 'RT-4', ma_khoa: 'LOCK-104', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Garden Tropical Bungalow', gia_ngay: 3200000, ghi_chu: 'Bungalow 104 khuôn viên nhiệt đới' },
+  { id: 5, so_phong: '105', tang: 1, khu: 'A', ma_loai: 'RT-1', ma_khoa: 'LOCK-105', buong_phong: 'dirty', luu_tru: 'vacant', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng 105 Tầng 1 chờ dọn phòng' },
+  { id: 29, so_phong: '106', tang: 1, khu: 'A', ma_loai: 'RT-4', ma_khoa: 'LOCK-106', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Garden Tropical Bungalow', gia_ngay: 3200000, ghi_chu: 'Bungalow 106 khuôn viên nhiệt đới' },
+
+  // Tầng 2
+  { id: 6, so_phong: '201', tang: 2, khu: 'A', ma_loai: 'RT-1', ma_khoa: 'LOCK-201', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng 201 Tầng 2 ban công ngắm biển' },
+  { id: 7, so_phong: '202', tang: 2, khu: 'A', ma_loai: 'RT-2', ma_khoa: 'LOCK-202', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Premier Seafront Suite', gia_ngay: 4500000, ghi_chu: 'Premier Suite 202 view trực diện biển' },
+  { id: 8, so_phong: '203', tang: 2, khu: 'A', ma_loai: 'RT-2', ma_khoa: 'LOCK-203', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Premier Seafront Suite', gia_ngay: 4500000, ghi_chu: 'Premier Suite 203 cao cấp' },
+  { id: 9, so_phong: '204', tang: 2, khu: 'A', ma_loai: 'RT-1', ma_khoa: 'LOCK-204', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng 204 Tầng 2 view biển êm đềm' },
+  { id: 10, so_phong: '205', tang: 2, khu: 'A', ma_loai: 'RT-1', ma_khoa: 'LOCK-205', buong_phong: 'dirty', luu_tru: 'vacant', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng 205 đang làm sạch' },
+
+  // Tầng 3
+  { id: 11, so_phong: '301', tang: 3, khu: 'B', ma_loai: 'RT-2', ma_khoa: 'LOCK-301', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Premier Seafront Suite', gia_ngay: 4500000, ghi_chu: 'Premier Suite 301 ban công hoàng hôn' },
+  { id: 12, so_phong: '302', tang: 3, khu: 'B', ma_loai: 'RT-7', ma_khoa: 'LOCK-302', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Lotus Spa Suite', gia_ngay: 6200000, ghi_chu: 'Lotus Spa Suite 302 không gian thư giãn' },
+  { id: 13, so_phong: '303', tang: 3, khu: 'B', ma_loai: 'RT-5', ma_khoa: 'LOCK-303', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Grand Family Ocean Suite', gia_ngay: 5500000, ghi_chu: 'Grand Family Suite 303 tiện nghi' },
+  { id: 14, so_phong: '304', tang: 3, khu: 'B', ma_loai: 'RT-5', ma_khoa: 'LOCK-304', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Grand Family Ocean Suite', gia_ngay: 5500000, ghi_chu: 'Grand Family Suite 304 tiện nghi' },
+  { id: 15, so_phong: '305', tang: 3, khu: 'B', ma_loai: 'RT-2', ma_khoa: 'LOCK-305', buong_phong: 'ooo', luu_tru: 'vacant', loai_phong_ten: 'Premier Seafront Suite', gia_ngay: 4500000, ghi_chu: 'Premier Suite 305 bảo trì điều hòa' },
+
+  // Tầng 4
+  { id: 16, so_phong: '401', tang: 4, khu: 'B', ma_loai: 'RT-1', ma_khoa: 'LOCK-401', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Deluxe Ocean View 401 tầng cao' },
+  { id: 17, so_phong: '402', tang: 4, khu: 'B', ma_loai: 'RT-7', ma_khoa: 'LOCK-402', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Lotus Spa Suite', gia_ngay: 6200000, ghi_chu: 'Lotus Spa Suite 402 thư thái' },
+  { id: 18, so_phong: '403', tang: 4, khu: 'B', ma_loai: 'RT-5', ma_khoa: 'LOCK-403', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Grand Family Ocean Suite', gia_ngay: 5500000, ghi_chu: 'Grand Family Suite 403 rộng rãi' },
+  { id: 19, so_phong: '404', tang: 4, khu: 'B', ma_loai: 'RT-2', ma_khoa: 'LOCK-404', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Premier Seafront Suite', gia_ngay: 4500000, ghi_chu: 'Premier Suite 404 tầng cao view biển' },
+  { id: 20, so_phong: '405', tang: 4, khu: 'B', ma_loai: 'RT-1', ma_khoa: 'LOCK-405', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Deluxe Ocean View', gia_ngay: 2500000, ghi_chu: 'Phòng Deluxe 405 view bao quát biển' },
+  { id: 31, so_phong: '406', tang: 4, khu: 'B', ma_loai: 'RT-8', ma_khoa: 'LOCK-406', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Honeymoon Ocean Retreat', gia_ngay: 5800000, ghi_chu: 'Honeymoon Retreat 406 lãng mạn' },
+
+  // Tầng 5
+  { id: 21, so_phong: '501', tang: 5, khu: 'VIP', ma_loai: 'RT-3', ma_khoa: 'LOCK-501', buong_phong: 'clean', luu_tru: 'inhouse', loai_phong_ten: 'Royal Beachfront Villa', gia_ngay: 12000000, ghi_chu: 'Royal Beachfront Villa 501 hồ bơi riêng' },
+  { id: 22, so_phong: '502', tang: 5, khu: 'VIP', ma_loai: 'RT-3', ma_khoa: 'LOCK-502', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Royal Beachfront Villa', gia_ngay: 12000000, ghi_chu: 'Royal Beachfront Villa 502 hồ bơi riêng' },
+  { id: 23, so_phong: '503', tang: 5, khu: 'VIP', ma_loai: 'RT-6', ma_khoa: 'LOCK-503', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Presidential Horizon Penthouse', gia_ngay: 25000000, ghi_chu: 'Presidential Penthouse 503 đẳng cấp đỉnh cao' },
+  { id: 24, so_phong: '504', tang: 5, khu: 'VIP', ma_loai: 'RT-6', ma_khoa: 'LOCK-504', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Presidential Horizon Penthouse', gia_ngay: 25000000, ghi_chu: 'Presidential Penthouse 504 đẳng cấp đỉnh cao' },
+  { id: 25, so_phong: '505', tang: 5, khu: 'VIP', ma_loai: 'RT-3', ma_khoa: 'LOCK-505', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Royal Beachfront Villa', gia_ngay: 12000000, ghi_chu: 'Royal Beachfront Villa 505 góc biển' }
+];
