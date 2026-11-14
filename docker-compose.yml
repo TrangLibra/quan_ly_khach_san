@@ -1,5 +1,5 @@
 services:
-  # 1. PostgreSQL Database for Medusa v2 (Port đổi sang 5433 để tránh trùng DB khác)
+  # 1. PostgreSQL Database dùng chung cho cả Medusa v2 và Directus
   postgres:
     image: postgres:16-alpine
     container_name: grand_horizon_postgres
@@ -18,7 +18,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # 2. Redis Cache & Event Bus for Medusa v2
+  # 2. Redis Cache & Event Bus
   redis:
     image: redis:7-alpine
     container_name: grand_horizon_redis
@@ -33,7 +33,34 @@ services:
       timeout: 5s
       retries: 5
 
-  # 3. MedusaJS v2 Headless Backend Engine (Port 9000)
+  # 3. Directus Headless CMS & Backoffice Management Suite (Port 8055)
+  directus:
+    image: directus/directus:latest
+    container_name: grand_horizon_directus
+    restart: unless-stopped
+    ports:
+      - "8055:8055"
+    environment:
+      KEY: "grand-horizon-directus-secret-key-2026"
+      SECRET: "grand-horizon-directus-secret-token-2026"
+      ADMIN_EMAIL: "admin@grandhorizon.com"
+      ADMIN_PASSWORD: "AdminPassword2026!"
+      DB_CLIENT: "pg"
+      DB_HOST: "postgres"
+      DB_PORT: "5432"
+      DB_DATABASE: "${POSTGRES_DB:-medusa_hotel}"
+      DB_USER: "${POSTGRES_USER:-postgres}"
+      DB_PASSWORD: "${POSTGRES_PASSWORD:-supersecretpassword}"
+      WEBSOCKETS_ENABLED: "true"
+      CORS_ENABLED: "true"
+      CORS_ORIGIN: "true"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  # 4. MedusaJS v2 Headless Core Commerce & Booking Engine (Port 9000)
   medusa-backend:
     build:
       context: ./medusa-backend
@@ -45,9 +72,9 @@ services:
       REDIS_URL: redis://redis:6379
       JWT_SECRET: ${JWT_SECRET:-grand_horizon_secret_key_2026_luxury_hotel}
       COOKIE_SECRET: ${COOKIE_SECRET:-grand_horizon_cookie_secret_2026}
-      STORE_CORS: ${STORE_CORS:-http://localhost:8080,http://localhost:5173}
-      ADMIN_CORS: ${ADMIN_CORS:-http://localhost:8080,http://localhost:9000,http://localhost:5173}
-      AUTH_CORS: ${AUTH_CORS:-http://localhost:8080,http://localhost:9000,http://localhost:5173}
+      STORE_CORS: ${STORE_CORS:-http://localhost:8080,http://localhost:5173,http://localhost:8055}
+      ADMIN_CORS: ${ADMIN_CORS:-http://localhost:8080,http://localhost:9000,http://localhost:5173,http://localhost:8055}
+      AUTH_CORS: ${AUTH_CORS:-http://localhost:8080,http://localhost:9000,http://localhost:5173,http://localhost:8055}
     ports:
       - "9000:9000"
     depends_on:
@@ -56,7 +83,7 @@ services:
       redis:
         condition: service_healthy
 
-  # 4. React Vite Frontend & Nginx Proxy (ĐỔI SANG PORT 8080 ĐỂ KHÔNG TRÙNG PORT 80 CỦA WORDPRESS/APACHE)
+  # 5. React Frontend Client (Port 8080)
   frontend:
     build:
       context: ./frontend
@@ -67,6 +94,7 @@ services:
       - "8080:80"
     depends_on:
       - medusa-backend
+      - directus
 
 volumes:
   pgdata:
