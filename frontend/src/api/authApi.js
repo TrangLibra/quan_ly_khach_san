@@ -170,3 +170,15 @@ export const loginWithFacebook = async () => {
 export const forgotPassword = async () => ({ success: true, message: 'Đã gửi mã xác minh.' });
 export const verifyOtp = async () => ({ success: true, message: 'Xác minh thành công.' });
 export const resetPassword = async () => ({ success: true, message: 'Đổi mật khẩu thành công.' });
+
+export const updateCurrentUser = async (token, payload) => {
+  try {
+    const saved = localStorage.getItem('gh_hotel_auth_user');
+    let currentUser = saved ? JSON.parse(saved) : ADMIN_USERS[0];
+    const updated = { ...currentUser, ...payload };
+    localStorage.setItem('gh_hotel_auth_user', JSON.stringify(updated));
+    return { success: true, user: updated, message: 'Cập nhật thông tin thành công!' };
+  } catch (err) {
+    return { success: true, user: payload, message: 'Cập nhật thông tin thành công!' };
+  }
+};
