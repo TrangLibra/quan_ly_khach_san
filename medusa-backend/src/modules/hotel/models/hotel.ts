@@ -13,6 +13,9 @@ export const Amenity = model.define("amenity", {
   name: model.text(),
   icon: model.text().nullable(),
   description: model.text().nullable(),
+  room_types: model.manyToMany(() => RoomType, {
+    mappedBy: "amenities",
+  }),
 })
 
 export const RoomType = model.define("room_type", {
@@ -26,7 +29,9 @@ export const RoomType = model.define("room_type", {
   image_url: model.text().nullable(),
   status: model.enum(["Active", "Inactive"]).default("Active"),
   is_deleted: model.boolean().default(false),
-  amenities: model.manyToMany(() => Amenity),
+  amenities: model.manyToMany(() => Amenity, {
+    mappedBy: "room_types",
+  }),
 })
 
 export const Room = model.define("room", {

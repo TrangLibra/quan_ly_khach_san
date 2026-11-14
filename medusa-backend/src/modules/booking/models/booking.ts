@@ -40,7 +40,7 @@ export const BookingRoomAllocation = model.define("booking_room_allocation", {
   }),
 })
 
-export const Payment = model.define("payment", {
+export const BookingPayment = model.define("booking_payment", {
   id: model.id().primaryKey(),
   amount: model.number(),
   currency_code: model.text().default("vnd"),
