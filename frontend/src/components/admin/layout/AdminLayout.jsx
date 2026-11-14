@@ -1,17 +1,39 @@
-import React from 'react';
-import AdminSidebar from './AdminSidebar';
-import AdminHeader from './AdminHeader';
+import React, { useState } from "react";
+import AdminSidebar from "./AdminSidebar";
+import AdminHeader from "./AdminHeader";
 
 const AdminLayout = ({ children }) => {
+  const [isCollapsed, setIsCollapsed] = useState(() => {
+    try {
+      return localStorage.getItem("admin_sidebar_collapsed") === "true";
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleSidebar = () => {
+    setIsCollapsed((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem("admin_sidebar_collapsed", String(next));
+      } catch {
+        // ignore storage errors
+      }
+      return next;
+    });
+  };
+
   return (
-    <div className="admin-theme bg-[#0d131f] text-slate-100 font-sans antialiased min-h-screen selection:bg-[#c5a059] selection:text-slate-900">
-      <AdminSidebar />
-      <div className="pl-72 transition-all duration-300">
-        <AdminHeader />
-        <main className="w-full pt-20 min-h-screen px-8 pb-12 bg-gradient-to-b from-[#0f172a] via-[#111827] to-[#0b0f19]">
-          <div className="max-w-[1600px] mx-auto space-y-6">
-            {children}
-          </div>
+    <div className="admin-theme bg-[#F9F7F2] font-body-md text-on-surface antialiased min-h-screen">
+      <AdminSidebar isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
+      <div
+        className={`transition-all duration-300 ease-in-out ${
+          isCollapsed ? "pl-20" : "pl-72"
+        }`}
+      >
+        <AdminHeader isCollapsed={isCollapsed} toggleSidebar={toggleSidebar} />
+        <main className="w-full pt-16 bg-[#F9F7F2] min-h-screen px-space-lg pb-margin-lg transition-all duration-300">
+          {children}
         </main>
       </div>
     </div>
