@@ -366,13 +366,13 @@ const MenuManagement = () => {
         {/*  Top Technical Header Strip  */}
         <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-space-md mb-space-lg">
           <div className="flex flex-col">
-            <div className="flex items-center gap-space-xs font-label-sm text-label-sm uppercase tracking-widest text-admin-primary font-bold">
+            <div className="flex items-center gap-space-xs font-label-sm text-label-sm uppercase tracking-widest text-[#9A7633] font-bold">
               <span>Ẩm Thực &amp; Bếp</span>
               <span className="text-outline-variant">/</span>
               <span className="text-on-surface-variant font-mono">Module 30 // PMS F&amp;B Engine</span>
               <span className="text-outline-variant">/</span>
-              <span className="inline-flex items-center gap-1 text-admin-primary bg-admin-primary/10 px-space-xs py-0.5 rounded-full">
-                <span className="w-1.5 h-1.5 rounded-full bg-admin-primary animate-pulse"></span>
+              <span className="inline-flex items-center gap-1 text-[#9A7633] bg-[#B9A277]/15 px-space-xs py-0.5 rounded-full">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#B9A277] animate-pulse"></span>
                 POS Sync Live v4.2.1
               </span>
             </div>
@@ -385,7 +385,7 @@ const MenuManagement = () => {
           </div>
           {/*  Terminal Utility Command Bar  */}
           <div className="flex flex-wrap items-center gap-space-xs">
-            <button onClick={openAddModal} className="flex items-center gap-space-xs px-space-md py-space-sm bg-admin-primary-container text-on-admin-primary font-label-md text-label-md font-semibold rounded-lg hover:brightness-105 shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all cursor-pointer" type="button">
+            <button onClick={openAddModal} className="flex items-center gap-space-xs px-space-md py-space-sm bg-[#B9A277]-container text-on-admin-primary font-label-md text-label-md font-semibold rounded-lg hover:brightness-105 shadow-[0_0_12px_rgba(16,185,129,0.3)] transition-all cursor-pointer" type="button">
               <span className="material-symbols-outlined text-[18px]">add_circle</span>
               <span>+ Thêm Món Mới</span>
             </button>
@@ -397,11 +397,11 @@ const MenuManagement = () => {
           <div className="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between relative overflow-hidden">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Món Đang Phục Vụ</span>
-              <span className="material-symbols-outlined text-[20px] text-admin-primary">restaurant_menu</span>
+              <span className="material-symbols-outlined text-[20px] text-[#9A7633]">restaurant_menu</span>
             </div>
             <div className="flex items-baseline gap-space-xs">
               <span className="font-headline-lg text-headline-lg font-bold text-on-surface font-mono">64</span>
-              <span className="font-label-sm text-label-sm text-admin-primary font-semibold">Món Trực Tuyến</span>
+              <span className="font-label-sm text-label-sm text-[#9A7633] font-semibold">Món Trực Tuyến</span>
             </div>
             <div className="flex items-center gap-space-sm pt-space-xs mt-space-xs text-on-surface-variant font-body-sm text-body-sm bg-surface-container-low px-space-xs py-1 rounded-md">
               <span>Khai vị: <strong className="text-on-surface font-mono">14</strong></span>
@@ -415,11 +415,11 @@ const MenuManagement = () => {
           <div className="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
             <div className="flex items-center justify-between mb-space-xs">
               <span className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant font-bold">Biên Lợi Nhuận Gộp TB</span>
-              <span className="material-symbols-outlined text-[20px] text-admin-primary-container">percent</span>
+              <span className="material-symbols-outlined text-[20px] text-[#9A7633]-container">percent</span>
             </div>
             <div className="flex items-baseline gap-space-xs">
-              <span className="font-headline-lg text-headline-lg font-bold text-admin-primary font-mono">68.4%</span>
-              <span className="font-label-sm text-label-sm text-admin-primary bg-admin-primary/10 px-1 rounded font-semibold">+3.4% v/s KPI</span>
+              <span className="font-headline-lg text-headline-lg font-bold text-[#9A7633] font-mono">68.4%</span>
+              <span className="font-label-sm text-label-sm text-[#9A7633] bg-[#B9A277]/15 px-1 rounded font-semibold">+3.4% v/s KPI</span>
             </div>
             <div className="flex items-center justify-between pt-space-xs mt-space-xs font-body-sm text-body-sm text-on-surface-variant">
               <span>Food Cost định mức:</span>
@@ -467,19 +467,19 @@ const MenuManagement = () => {
               <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-space-sm">
                 {/*  Meal Period Badges / Categories  */}
                 <div className="inline-flex p-1 bg-surface-container rounded-lg gap-1 overflow-x-auto">
-                  <button onClick={() => setSelectedCategory('')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '' ? 'bg-surface-container-lowest shadow-sm text-admin-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
+                  <button onClick={() => setSelectedCategory('')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '' ? 'bg-surface-container-lowest shadow-sm text-[#9A7633] font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
                     Tất Cả Món
                   </button>
-                  <button onClick={() => setSelectedCategory('1')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '1' ? 'bg-surface-container-lowest shadow-sm text-admin-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
+                  <button onClick={() => setSelectedCategory('1')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '1' ? 'bg-surface-container-lowest shadow-sm text-[#9A7633] font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
                     Bếp Nóng
                   </button>
-                  <button onClick={() => setSelectedCategory('2')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '2' ? 'bg-surface-container-lowest shadow-sm text-admin-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
+                  <button onClick={() => setSelectedCategory('2')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '2' ? 'bg-surface-container-lowest shadow-sm text-[#9A7633] font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
                     Bếp Lạnh
                   </button>
-                  <button onClick={() => setSelectedCategory('3')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '3' ? 'bg-surface-container-lowest shadow-sm text-admin-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
+                  <button onClick={() => setSelectedCategory('3')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '3' ? 'bg-surface-container-lowest shadow-sm text-[#9A7633] font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
                     Tráng Miệng
                   </button>
-                  <button onClick={() => setSelectedCategory('4')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '4' ? 'bg-surface-container-lowest shadow-sm text-admin-primary font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
+                  <button onClick={() => setSelectedCategory('4')} className={`px-space-sm py-1 rounded font-label-md text-label-md whitespace-nowrap ${selectedCategory === '4' ? 'bg-surface-container-lowest shadow-sm text-[#9A7633] font-bold' : 'hover:bg-surface-container-high text-on-surface-variant'}`} type="button">
                     Đồ Uống / Bar
                   </button>
                 </div>
@@ -583,7 +583,7 @@ const MenuManagement = () => {
                                   </span>
                                   {item.Status !== 'Available' && <span className="bg-[#EF4444] text-white font-label-sm text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shadow-sm">86'D</span>}
                                 </div>
-                                <span className="font-mono text-label-sm text-on-surface-variant font-bold text-admin-primary">#MN-{item.MenuItemId}</span>
+                                <span className="font-mono text-label-sm text-on-surface-variant font-bold text-[#9A7633]">#MN-{item.MenuItemId}</span>
                               </div>
                             </div>
                           </td>
@@ -637,7 +637,7 @@ const MenuManagement = () => {
                                       setMessageModal({ isOpen: true, type: 'error', title: 'LỖI', message: 'Không thể kết nối.' });
                                     }
                                   }} 
-                                  className="w-7 h-7 rounded-full bg-admin-primary/15 text-admin-primary flex items-center justify-center hover:bg-admin-primary/30 transition-colors" 
+                                  className="w-7 h-7 rounded-full bg-[#B9A277]/15 text-[#9A7633] flex items-center justify-center hover:bg-[#B9A277]/30 transition-colors" 
                                   title="Mở bán lại món này"
                                 >
                                   <span className="material-symbols-outlined text-[16px]">check_circle</span>
@@ -718,7 +718,7 @@ const MenuManagement = () => {
                     <h3 className="text-title-lg font-bold text-on-surface">Chưa chọn món ăn</h3>
                     <p className="text-body-md text-on-surface-variant max-w-xs mx-auto">Vui lòng chọn một món ăn từ danh sách bên trái để xem chi tiết, hoặc bấm Thêm Mới.</p>
                   </div>
-                  <button type="button" onClick={openAddModal} className="mt-4 px-6 py-2.5 bg-admin-primary-container text-on-admin-primary font-bold rounded-lg hover:brightness-105 shadow transition-all">
+                  <button type="button" onClick={openAddModal} className="mt-4 px-6 py-2.5 bg-[#B9A277]-container text-on-admin-primary font-bold rounded-lg hover:brightness-105 shadow transition-all">
                     + Thêm Món Mới
                   </button>
                 </div>
