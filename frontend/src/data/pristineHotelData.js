@@ -325,3 +325,99 @@ export const PRISTINE_PHYSICAL_ROOMS = [
   { id: 24, so_phong: '504', tang: 5, khu: 'VIP', ma_loai: 'RT-6', ma_khoa: 'LOCK-504', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Presidential Horizon Penthouse', gia_ngay: 25000000, ghi_chu: 'Presidential Penthouse 504 đẳng cấp đỉnh cao' },
   { id: 25, so_phong: '505', tang: 5, khu: 'VIP', ma_loai: 'RT-3', ma_khoa: 'LOCK-505', buong_phong: 'clean', luu_tru: 'vacant', loai_phong_ten: 'Royal Beachfront Villa', gia_ngay: 12000000, ghi_chu: 'Royal Beachfront Villa 505 góc biển' }
 ];
+
+
+// ─── 8 Đơn món F&B mẫu chuẩn quy trình 4 giai đoạn ─────────────────────────
+export const PRISTINE_FNB_ORDERS = [
+  {
+    foodOrderId: 1001,
+    roomNumber: '101',
+    status: 'Pending',
+    orderTime: '11:45',
+    totalAmount: 1850000,
+    note: 'Bò Wagyu A5 chín vừa (Medium rare), không lấy hành tây',
+    items: [
+      { menuItemId: 3, itemName: 'Bò Wagyu A5 nướng than hoa', quantity: 1, price: 1850000 }
+    ]
+  },
+  {
+    foodOrderId: 1002,
+    roomNumber: '202',
+    status: 'Pending',
+    orderTime: '11:50',
+    totalAmount: 650000,
+    note: 'Giao nước chấm tiêu chanh riêng',
+    items: [
+      { menuItemId: 2, itemName: 'Súp bào ngư vi cá tổ yến', quantity: 1, price: 650000 }
+    ]
+  },
+  {
+    foodOrderId: 1003,
+    roomNumber: '301',
+    status: 'Preparing',
+    orderTime: '11:30',
+    totalAmount: 2200000,
+    note: 'Cua sốt ớt cay nhẹ kèm bánh bao chiên giòn',
+    items: [
+      { menuItemId: 12, itemName: 'Cua hoàng đế King Crab sốt bơ tỏi ớt', quantity: 1, price: 2200000 }
+    ]
+  },
+  {
+    foodOrderId: 1004,
+    roomNumber: '501',
+    status: 'Preparing',
+    orderTime: '11:20',
+    totalAmount: 2540000,
+    note: 'Suất ăn VIP phục vụ tại villa kèm nến',
+    items: [
+      { menuItemId: 4, itemName: 'Bò bít tết Thăn nội Tenderloin Angus', quantity: 2, price: 1780000 },
+      { menuItemId: 9, itemName: 'Rượu vang đỏ Montes Alpha Cabernet Sauvignon', quantity: 1, price: 760000 }
+    ]
+  },
+  {
+    foodOrderId: 1005,
+    roomNumber: '102',
+    status: 'Ready',
+    orderTime: '11:10',
+    totalAmount: 930000,
+    note: 'Món đã sẵn sàng tại quầy ra món, gọi runner chuyển tầng 1',
+    items: [
+      { menuItemId: 1, itemName: 'Salad cá hồi Na Uy xông khói', quantity: 1, price: 280000 },
+      { menuItemId: 2, itemName: 'Súp bào ngư vi cá tổ yến', quantity: 1, price: 650000 }
+    ]
+  },
+  {
+    foodOrderId: 1006,
+    roomNumber: '402',
+    status: 'Delivering',
+    orderTime: '11:05',
+    totalAmount: 280000,
+    note: 'Runner đang mang lên phòng bằng thang máy dịch vụ',
+    items: [
+      { menuItemId: 1, itemName: 'Salad cá hồi Na Uy xông khói', quantity: 1, price: 280000 }
+    ]
+  },
+  {
+    foodOrderId: 1007,
+    roomNumber: '201',
+    status: 'Served',
+    orderTime: '10:15',
+    totalAmount: 1850000,
+    note: 'Khách đã dùng bữa và ký xác nhận hóa đơn phòng',
+    items: [
+      { menuItemId: 3, itemName: 'Bò Wagyu A5 nướng than hoa', quantity: 1, price: 1850000 }
+    ]
+  },
+  {
+    foodOrderId: 1008,
+    roomNumber: '503',
+    status: 'Delivered',
+    orderTime: '09:40',
+    totalAmount: 3850000,
+    note: 'Đã hoàn tất thanh toán thẻ qua máy POS di động',
+    items: [
+      { menuItemId: 12, itemName: 'Cua hoàng đế King Crab sốt bơ tỏi ớt', quantity: 1, price: 2200000 },
+      { menuItemId: 9, itemName: 'Rượu vang đỏ Montes Alpha Cabernet Sauvignon', quantity: 1, price: 1650000 }
+    ]
+  }
+];
