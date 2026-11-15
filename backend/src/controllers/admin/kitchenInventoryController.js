@@ -94,14 +94,14 @@ exports.getKitchenIngredients = async (req, res) => {
         totalPages: Math.ceil(totalItems / limitNum) || 1
       },
       metrics: {
-        totalSku: metrics[0]?.totalSKU || 0,
-        totalSKU: metrics[0]?.totalSKU || 0,
-        lowStockCount: metrics[0]?.criticalCount || 0,
-        criticalCount: metrics[0]?.criticalCount || 0,
-        outOfStockCount: metrics[0]?.outOfStockCount || 0,
-        inStockCount: metrics[0]?.normalCount || 0,
-        normalCount: metrics[0]?.normalCount || 0,
-        parStockRate: metrics[0]?.parStockRate || 94.2
+        totalSku: Number(metrics[0]?.totalSKU) || 0,
+        totalSKU: Number(metrics[0]?.totalSKU) || 0,
+        lowStockCount: Number(metrics[0]?.criticalCount) || 0,
+        criticalCount: Number(metrics[0]?.criticalCount) || 0,
+        outOfStockCount: Number(metrics[0]?.outOfStockCount) || 0,
+        inStockCount: Number(metrics[0]?.normalCount) || 0,
+        normalCount: Number(metrics[0]?.normalCount) || 0,
+        parStockRate: parseFloat(metrics[0]?.parStockRate) || 94.2
       }
     });
   } catch (error) {
