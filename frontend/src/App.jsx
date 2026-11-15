@@ -38,6 +38,8 @@ import MockPaymentGateway from './pages/client/MockPaymentGateway';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import ExtendStayAndMove from './pages/admin/ExtendStayAndMove';
 import MinibarManagement from './pages/admin/MinibarManagement';
+import AiConciergeManagement from './pages/admin/ai/AiConciergeManagement';
+import FloatingAiConcierge from './components/client/FloatingAiConcierge';
 
 // tuyen/7 imports:
 import MarketingDashboard from './pages/admin/marketing/MarketingDashboard';
@@ -171,8 +173,16 @@ function App() {
             <Route path="/admin/shifts" element={<ProtectedRoute><RosterShifts /></ProtectedRoute>} />
             <Route path="/admin/dieu-do-ca" element={<ProtectedRoute><RosterShifts /></ProtectedRoute>} />
 
+            {/* Phân hệ Trợ lý ảo AI Concierge & Quản trị Cơ sở Tri thức */}
+            <Route path="/admin/ai-concierge" element={<ProtectedRoute><AiConciergeManagement /></ProtectedRoute>} />
+            <Route path="/admin/knowledge-base" element={<ProtectedRoute><AiConciergeManagement /></ProtectedRoute>} />
+            <Route path="/admin/ai/knowledge" element={<ProtectedRoute><AiConciergeManagement /></ProtectedRoute>} />
+            <Route path="/admin/ai/knowledge-base" element={<ProtectedRoute><AiConciergeManagement /></ProtectedRoute>} />
+            <Route path="/admin/ai" element={<ProtectedRoute><AiConciergeManagement /></ProtectedRoute>} />
+
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
+          <FloatingAiConcierge />
         </Router>
       </SocketProvider>
     </AuthProvider>
