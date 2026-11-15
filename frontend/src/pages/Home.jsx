@@ -89,7 +89,7 @@ function Home() {
           setAllRooms(json.data || []);
         }
       })
-      .catch(() => { })
+      .catch(() => {})
       .finally(() => setLoadingAllRooms(false));
   };
 
@@ -99,7 +99,7 @@ function Home() {
     const dateInputs = document.querySelectorAll('input[type="date"]');
     if (dateInputs.length >= 2) {
       dateInputs[0].setAttribute('min', today);
-      dateInputs[0].addEventListener('change', function () {
+      dateInputs[0].addEventListener('change', function() {
         dateInputs[1].setAttribute('min', this.value);
       });
     }
@@ -112,9 +112,9 @@ function Home() {
       <main className="w-full pt-20 bg-background flex-1">
         <div className="flex flex-col w-full">
           <section className="relative w-full -mt-20 pt-32 pb-24 lg:pb-32 overflow-hidden flex flex-col justify-between min-h-[942px]">
-            <div
-              className="absolute inset-0 bg-cover bg-center -z-20"
-              data-alt="Ultra luxury beachfront tropical resort at twilight sunset"
+            <div 
+              className="absolute inset-0 bg-cover bg-center -z-20" 
+              data-alt="Ultra luxury beachfront tropical resort at twilight sunset" 
               style={{ backgroundImage: 'url("/images/hero-banner.jpg")' }}
             >
             </div>
@@ -303,7 +303,7 @@ function Home() {
                   <span className="material-symbols-outlined text-error text-[48px]">wifi_off</span>
                   <p className="font-title-md text-title-md text-on-surface-variant">{roomError}</p>
                   <button
-                    onClick={() => { setRoomError(null); setLoadingRooms(true); fetch(`${ROOM_API_URL}?trang_thai=active`).then(r => r.json()).then(j => { if (j.success) setRoomTypes(j.data || []); }).catch(() => setRoomError('Không thể kết nối.')).finally(() => setLoadingRooms(false)); }}
+                    onClick={() => { setRoomError(null); setLoadingRooms(true); fetch(`${ROOM_API_URL}?trang_thai=active`).then(r=>r.json()).then(j=>{ if(j.success) setRoomTypes(j.data||[]); }).catch(()=>setRoomError('Không thể kết nối.')).finally(()=>setLoadingRooms(false)); }}
                     className="px-space-lg py-space-sm rounded-lg bg-secondary text-on-secondary font-label-md text-label-md"
                   >
                     Thử lại
@@ -349,10 +349,11 @@ function Home() {
                             onError={(e) => { e.currentTarget.src = FALLBACK_IMAGES[index % FALLBACK_IMAGES.length]; }}
                           />
                           {/* Badge loại phòng */}
-                          <div className={`absolute top-space-sm left-space-sm px-space-sm py-space-xs backdrop-blur-md rounded font-label-sm text-label-sm font-semibold uppercase tracking-wider ${isFirst
+                          <div className={`absolute top-space-sm left-space-sm px-space-sm py-space-xs backdrop-blur-md rounded font-label-sm text-label-sm font-semibold uppercase tracking-wider ${
+                            isFirst
                               ? 'bg-primary-container/90 text-secondary-fixed'
                               : 'bg-surface-container-lowest/90 text-secondary'
-                            }`}>
+                          }`}>
                             {room.ma_loai}
                           </div>
                           {/* Badge sức chứa */}
@@ -891,4 +892,3 @@ function Home() {
 }
 
 export default Home;
-                  
