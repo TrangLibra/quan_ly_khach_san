@@ -2,10 +2,9 @@ import { PRISTINE_BRANCHES, PRISTINE_ROOM_TYPES, PRISTINE_ROOMS } from "../data/
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import AdminLayout from '../components/admin/layout/AdminLayout';
 import { useAuth } from '../context/AuthContext';
+import { getApiBase } from '../config/apiConfig';
 
-const API_BASE_URL = typeof window !== 'undefined' && window.location.port === '3000'
-  ? '/api/v1/rooms'
-  : 'http://localhost:5000/api/v1/rooms';
+const API_BASE_URL = `${getApiBase()}/api/v1/rooms`;
 
 // ─── 7 TRẠNG THÁI CHUẨN SPEC 2 (Mục 2 & 6.1) ─────────────────────────────────
 const ROOM_STATUS_CONFIG = {
@@ -175,25 +174,14 @@ const RoomManagement = () => {
         if (rtJson.success) setRoomTypes(rtJson.data || []);
       }
 
-      // 2. Tải danh sách phòng vật lý (với fallback cổng 5000)
+      // 2. Tải danh sách phòng vật lý
       let roomsRes;
       try {
         roomsRes = await fetch(`${API_BASE_URL}/physical`, {
           headers: { Authorization: authHeaderVal },
         });
-        if (!roomsRes.ok && API_BASE_URL.startsWith('/')) {
-          roomsRes = await fetch('http://localhost:5000/api/v1/rooms/physical', {
-            headers: { Authorization: authHeaderVal },
-          });
-        }
       } catch (e) {
-        if (API_BASE_URL.startsWith('/')) {
-          roomsRes = await fetch('http://localhost:5000/api/v1/rooms/physical', {
-            headers: { Authorization: authHeaderVal },
-          });
-        } else {
-          throw e;
-        }
+        throw e;
       }
 
       if (!roomsRes.ok) {

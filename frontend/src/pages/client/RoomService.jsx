@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GuestSidebar from '../../components/layout/GuestSidebar';
 import GuestHeader from '../../components/layout/GuestHeader';
 import { useAuth } from '../../context/AuthContext';
+import { getApiBase } from '../../config/apiConfig';
 
 const RoomService = () => {
   const { user } = useAuth();
@@ -43,7 +44,7 @@ const RoomService = () => {
   useEffect(() => {
     const fetchActiveStays = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/v1/fnb-orders/active-stays');
+        const res = await fetch(`${getApiBase()}/api/v1/fnb-orders/active-stays`);
         const json = await res.json();
         if (json && json.success && Array.isArray(json.data) && json.data.length > 0) {
           setActiveStays(json.data);
@@ -70,7 +71,7 @@ const RoomService = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/v1/menu-categories');
+        const res = await fetch(`${getApiBase()}/api/v1/menu-categories`);
         const data = await res.json();
         if (data && data.success && Array.isArray(data.data)) {
           setCategories(data.data);
@@ -87,7 +88,7 @@ const RoomService = () => {
     const fetchMenuItems = async () => {
       setIsLoadingMenu(true);
       try {
-        let url = 'http://localhost:5000/api/v1/menu-items?limit=100';
+        let url = `${getApiBase()}/api/v1/menu-items?limit=100`;
         if (selectedCategoryId && selectedCategoryId !== 'ALL') {
           url += `&category=${selectedCategoryId}`;
         }
@@ -264,7 +265,7 @@ const RoomService = () => {
       const authHeader = { 'Authorization': `Bearer ${token}` };
 
       // Bước 1: Tạo đơn Room Service (FEAT-FNB-04)
-      const createRes = await fetch('http://localhost:5000/api/v1/fnb-orders', {
+      const createRes = await fetch(`${getApiBase()}/api/v1/fnb-orders`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -295,7 +296,7 @@ const RoomService = () => {
       setCreatedOrder(createData.data);
 
       // Bước 2: Xử lý hình thức thanh toán (FEAT-FNB-07)
-      const payRes = await fetch(`http://localhost:5000/api/v1/fnb-orders/${orderId}/payment`, {
+      const payRes = await fetch(`${getApiBase()}/api/v1/fnb-orders/${orderId}/payment`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

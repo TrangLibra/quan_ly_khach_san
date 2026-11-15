@@ -2,6 +2,7 @@ import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AdminLayout from '../../../components/admin/layout/AdminLayout';
 import { useAuth } from '../../../context/AuthContext';
+import { getApiBase } from '../../../config/apiConfig';
 
 /* ═══════════════════════════════════════════════════════════════════════════
    FEAT-ROOMMAP-01: SƠ ĐỒ PHÒNG LỄ TÂN TRỰC QUAN
@@ -109,11 +110,10 @@ function normalizeStatusKey(st) {
 
 // Helper gọi API an toàn
 const callApiSafe = async (endpoint, options = {}) => {
-  const envUrl = import.meta.env.VITE_API_URL || '';
+  const base = getApiBase();
   const candidates = [
-    `${envUrl}${endpoint}`,
-    endpoint,
-    `http://localhost:5000${endpoint}`
+    `${base}${endpoint}`,
+    endpoint
   ];
 
   let lastError = null;

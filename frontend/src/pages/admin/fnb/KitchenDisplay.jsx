@@ -1,6 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import AdminLayout from '../../../components/admin/layout/AdminLayout';
 import OrderPrintModal from '../../../components/admin/fnb/OrderPrintModal';
+import { getApiBase } from '../../../config/apiConfig';
+
+const KITCHEN_API_BASE = `${getApiBase()}/api/v1/fnb-orders`;
 
 
 const Ticket = ({ order, onCheck, onReady, onPrint, isNew, onAcknowledgeNew }) => {
@@ -154,7 +157,7 @@ const KitchenDisplay = () => {
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/${orderId}/print?printType=${printType}&action=${action}`, {
+      const res = await fetch(`${KITCHEN_API_BASE}/${orderId}/print?printType=${printType}&action=${action}`, {
         headers
       });
       const data = await res.json();
@@ -195,7 +198,7 @@ const KitchenDisplay = () => {
 
   const fetchExpediterMetrics = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/v1/fnb-orders/kitchen/expediter-metrics');
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/expediter-metrics`);
       const data = await res.json();
       if (data.success && data.data) {
         setExpediterData(data.data);
@@ -205,7 +208,7 @@ const KitchenDisplay = () => {
 
   const handleCallRunners = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/v1/fnb-orders/kitchen/call-runners', { method: 'POST' });
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/call-runners`, { method: 'POST' });
       const data = await res.json();
       if (!isMuted) {
         try { beepSound.current.play(); } catch(e){}
@@ -218,7 +221,7 @@ const KitchenDisplay = () => {
 
   const handleClearPass = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/v1/fnb-orders/kitchen/clear-pass', { method: 'POST' });
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/clear-pass`, { method: 'POST' });
       const data = await res.json();
       if (data.success) {
         showMessageModal('success', 'DỌN BÀN RA MÓN', data.message);
@@ -325,7 +328,7 @@ const KitchenDisplay = () => {
   // Tải lại danh sách đơn hàng từ Server (TC06)
   const fetchOrders = async (isReconnect = false) => {
     try {
-      const response = await fetch('http://localhost:5000/api/v1/fnb-orders/kitchen');
+      const response = await fetch(`${KITCHEN_API_BASE}/kitchen`);
       const data = await response.json();
       if (data.success) {
         setOrders(data.data);
@@ -438,7 +441,7 @@ const KitchenDisplay = () => {
 
   const handleItemCheck = async (orderId, detailId, currentStatus) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/kitchen/${orderId}/items/${detailId}`, {
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/${orderId}/items/${detailId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ isCompleted: !currentStatus })
@@ -464,7 +467,7 @@ const KitchenDisplay = () => {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/kitchen/${orderId}/ready`, {
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/${orderId}/ready`, {
         method: 'PATCH'
       });
       const data = await res.json();
@@ -489,7 +492,7 @@ const KitchenDisplay = () => {
 
   const openRestoreModal = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/v1/fnb-orders/kitchen/ready');
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/ready`);
       const data = await res.json();
       setRestoreModal({ isOpen: true, list: data.data || [] });
     } catch(e) {
@@ -499,7 +502,7 @@ const KitchenDisplay = () => {
 
   const handleRestore = async (orderId) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/kitchen/${orderId}/restore`, { method: 'PATCH' });
+      const res = await fetch(`${KITCHEN_API_BASE}/kitchen/${orderId}/restore`, { method: 'PATCH' });
       if (res.ok) {
         setRestoreModal({ isOpen: false, list: [] });
         fetchOrders();

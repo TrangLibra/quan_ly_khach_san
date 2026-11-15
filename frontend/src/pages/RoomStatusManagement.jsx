@@ -2,9 +2,10 @@ import { PRISTINE_PHYSICAL_ROOMS, PRISTINE_ROOM_TYPES } from "../data/pristineHo
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import AdminLayout from '../components/admin/layout/AdminLayout';
 import { useSocket } from '../context/SocketContext';
+import { getApiBase } from '../config/apiConfig';
 
 // ─── Cấu hình API Backend ──────────────────────────────────────────────────
-const API_BASE = (import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : 'http://localhost:5000') + '/api/phong';
+const API_BASE = `${getApiBase()}/api/phong`;
 
 // Helper lấy header xác thực và content-type
 const getAuthHeaders = () => {
@@ -205,7 +206,7 @@ const RoomStatusManagement = () => {
   // ─── Tải danh mục loại phòng ─────────────────────────────────────────────
   const fetchRoomTypes = async () => {
     try {
-      const res = await fetch((import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/$/, '') : 'http://localhost:5000') + '/api/loai-phong');
+      const res = await fetch(`${getApiBase()}/api/loai-phong`);
       const data = await res.json();
       if (data.success && Array.isArray(data.data) && data.data.length > 0) {
         setRoomTypes(

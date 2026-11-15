@@ -1,9 +1,10 @@
 // frontend/src/api/minibarApi.js
 // Client API cho Chức năng Quản lý Minibar phòng (FEAT-MINIBAR-01 - Spec 12)
+import { getApiBase } from '../config/apiConfig';
 
 const API_ENDPOINTS = [
-  '/api/v1/minibar',
-  'http://localhost:5000/api/v1/minibar',
+  `${getApiBase()}/api/v1/minibar`,
+  '/api/v1/minibar'
 ];
 
 async function safeFetchJson(path, options = {}) {

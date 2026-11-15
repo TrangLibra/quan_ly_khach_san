@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useSearchParams, useNavigate } from "react-router-dom";
 import styles from "./MockPaymentGateway.module.css";
+import { getApiBase } from "../../config/apiConfig";
 
 const MockPaymentGateway = () => {
   const { transactionCode } = useParams();
@@ -19,7 +20,7 @@ const MockPaymentGateway = () => {
   useEffect(() => {
     const fetchPayment = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/v1/payments/${transactionCode}`);
+        const res = await fetch(`${getApiBase()}/api/v1/payments/${transactionCode}`);
         const data = await res.json();
         if (data.success && data.data) {
           setPaymentData(data.data);
@@ -42,7 +43,7 @@ const MockPaymentGateway = () => {
     setStatusMessage(null);
 
     try {
-      const res = await fetch("http://localhost:5000/api/v1/payments/webhook/mock", {
+      const res = await fetch(`${getApiBase()}/api/v1/payments/webhook/mock`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

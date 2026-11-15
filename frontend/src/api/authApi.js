@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+import { getApiBase } from '../config/apiConfig';
+
+const API_BASE_URL = getApiBase();
 
 /**
  * 5 Tài khoản Admin theo chuẩn CSDL dự án (DANH_SACH_TAI_KHOAN_ADMIN.md)

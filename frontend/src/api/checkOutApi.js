@@ -1,8 +1,9 @@
 // frontend/src/api/checkOutApi.js
+import { getApiBase } from '../config/apiConfig';
 
 const API_ENDPOINTS = [
-  '/api/v1/check-out',
-  'http://localhost:5000/api/v1/check-out',
+  `${getApiBase()}/api/v1/check-out`,
+  '/api/v1/check-out'
 ];
 
 async function safeFetchJson(path, options = {}) {

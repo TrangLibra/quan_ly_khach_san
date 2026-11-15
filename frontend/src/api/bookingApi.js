@@ -1,8 +1,10 @@
 // frontend/src/api/bookingApi.js
+import { getApiBase } from '../config/apiConfig';
 
 const API_ENDPOINTS = [
-  '/api/v1/bookings',
-  'http://localhost:5000/api/v1/bookings',
+  `${getApiBase()}/api/v1/bookings`,
+  `${getApiBase()}/admin/rooms`,
+  '/api/v1/bookings'
 ];
 
 async function safeFetchJson(path, options = {}) {

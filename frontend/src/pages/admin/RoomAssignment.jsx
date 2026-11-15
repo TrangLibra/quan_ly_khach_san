@@ -3,9 +3,11 @@ import { useNavigate, useParams, useSearchParams, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
 import AdminLayout from '../../components/admin/layout/AdminLayout';
 
-// Hỗ trợ cả kết nối trực tiếp cổng 5000 và qua Proxy /api của Vite
+import { getApiBase } from '../../config/apiConfig';
+
+// Hỗ trợ cả kết nối Cloud Render và qua Proxy /api của Vite
 const API_ENDPOINTS = [
-  'http://localhost:5000/api/v1/allocation',
+  `${getApiBase()}/api/v1/allocation`,
   '/api/v1/allocation',
 ];
 
@@ -1171,7 +1173,7 @@ export default function RoomAssignment() {
         // 2. Chuyển trạng thái sang CheckedIn qua API bookings
         const targetRoomId = selectedRoomIds[0] || selectedRoomId;
         const token = localStorage.getItem('token') || localStorage.getItem('hotel_token');
-        const checkInRes = await fetch(`http://localhost:5000/api/bookings/${selectedBookingId}/status`, {
+        const checkInRes = await fetch(`${getApiBase()}/api/bookings/${selectedBookingId}/status`, {
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',

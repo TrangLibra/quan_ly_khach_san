@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import AdminLayout from "../../../components/admin/layout/AdminLayout";
+import { getApiBase, getWsBase } from "../../../config/apiConfig";
 
 /**
  * FEAT-FNB-06 (Mã truy vết: A4.6)
@@ -48,7 +49,7 @@ const OrderDispatchHub = () => {
   // 1. Fetch Status hiện tại từ server (REST API)
   const fetchOrders = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/v1/fnb-orders/track/hub");
+      const res = await fetch(`${getApiBase()}/api/v1/fnb-orders/track/hub`);
       const json = await res.json();
       if (json.success && Array.isArray(json.data)) {
         setOrders(json.data);
@@ -65,7 +66,7 @@ const OrderDispatchHub = () => {
   // 2. Thiết lập kết nối WebSocket Real-Time
   const setupWebSocket = () => {
     try {
-      const socket = new WebSocket("ws://localhost:5000/ws/fnb-orders");
+      const socket = new WebSocket(`${getWsBase()}/ws/fnb-orders`);
       wsRef.current = socket;
 
       socket.onopen = () => {
@@ -153,7 +154,7 @@ const OrderDispatchHub = () => {
   // Cập nhật trạng thái chuyển giao qua Server
   const handleUpdateStatus = async (orderId, newStatus) => {
     try {
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/${orderId}`, {
+      const res = await fetch(`${getApiBase()}/api/v1/fnb-orders/${orderId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status: newStatus })

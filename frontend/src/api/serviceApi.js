@@ -4,7 +4,10 @@
  * Chuẩn hóa theo đặc tả FEAT-SERVICE-01
  */
 
-const BASE_URL = 'http://localhost:5000/api/v1/services';
+import { getApiBase } from '../config/apiConfig';
+
+const BASE_URL = `${getApiBase()}/api/v1/services`;
+const ORDERS_BASE_URL = `${getApiBase()}/api/v1/service-orders`;
 
 const getAuthHeaders = () => {
   const token =
@@ -147,7 +150,6 @@ export const createCategoryApi = async (categoryData) => {
 };
 
 // ─── FEAT-SERVICE-03: ĐẶT DỊCH VỤ & SERVICE ORDERS ───────────────────────────
-const ORDERS_BASE_URL = 'http://localhost:5000/api/v1/service-orders';
 
 /**
  * 8. Lấy danh sách các phòng đang lưu trú (CheckedIn hoặc Extended) cho Lễ tân

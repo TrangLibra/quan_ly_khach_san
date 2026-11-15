@@ -2,10 +2,9 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import AdminLayout from '../components/admin/layout/AdminLayout';
 import { useAuth } from '../context/AuthContext';
 import { useSocket } from '../context/SocketContext';
+import { getApiBase } from '../config/apiConfig';
 
-const API_BASE_URL = typeof window !== 'undefined' && window.location.port === '3000'
-  ? '/api/v1/room-types'
-  : 'http://localhost:5000/api/v1/room-types';
+const API_BASE_URL = `${getApiBase()}/api/v1/room-types`;
 
 const EMPTY_FORM = {
   typeName: '',
@@ -123,19 +122,8 @@ const RoomTypeManagement = () => {
         res = await fetch(API_BASE_URL, {
           headers: { Authorization: authHeaderVal },
         });
-        if (!res.ok && API_BASE_URL.startsWith('/')) {
-          res = await fetch('http://localhost:5000/api/v1/room-types', {
-            headers: { Authorization: authHeaderVal },
-          });
-        }
       } catch (e) {
-        if (API_BASE_URL.startsWith('/')) {
-          res = await fetch('http://localhost:5000/api/v1/room-types', {
-            headers: { Authorization: authHeaderVal },
-          });
-        } else {
-          throw e;
-        }
+        throw e;
       }
 
       if (!res.ok) {

@@ -1,4 +1,5 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
+import { getApiBase } from '../../config/apiConfig';
 
 const QuickBookingModal = ({ room, branch, branchName, checkIn, checkInDate, checkOut, checkOutDate, isOpen = true, onClose, onSuccess }) => {
   if (!isOpen || !room) return null;
@@ -41,7 +42,7 @@ const QuickBookingModal = ({ room, branch, branchName, checkIn, checkInDate, che
 
     try {
       const token = localStorage.getItem('hotel_token');
-      const response = await fetch('http://localhost:5000/api/v1/rooms/book', {
+      const response = await fetch(`${getApiBase()}/api/v1/rooms/book`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
