@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useEffect, useRef, useState, useCallback } from 'react';
+import { getWsBase } from '../config/apiConfig';
 
 const SocketContext = createContext(null);
 
-const DEFAULT_WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:5000/ws/rooms';
+const DEFAULT_WS_URL = `${getWsBase()}/ws/rooms`;
 
 export const SocketProvider = ({ children, url = DEFAULT_WS_URL }) => {
   const [isConnected, setIsConnected] = useState(false);

@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import AdminLayout from "../../../components/admin/layout/AdminLayout";
 import OrderPrintModal from "../../../components/admin/fnb/OrderPrintModal";
+import { getApiBase } from "../../../config/apiConfig";
 
-const API = "http://localhost:5000/api/v1/fnb-orders/history";
+const API = `${getApiBase()}/api/v1/fnb-orders/history`;
 
 const STATUS_LABEL = {
   Pending:    { label: "Đang chờ",     color: "bg-amber-100 text-amber-800" },
@@ -299,7 +300,7 @@ export default function FnbOrderHistory() {
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/${orderId}/print?printType=${printType}&action=${action}`, {
+      const res = await fetch(`${getApiBase()}/api/v1/fnb-orders/${orderId}/print?printType=${printType}&action=${action}`, {
         headers
       });
       const data = await res.json();

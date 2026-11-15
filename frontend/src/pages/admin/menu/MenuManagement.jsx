@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../../components/admin/layout/AdminLayout';
 import MenuForm from './MenuForm';
+import { getApiBase } from '../../../config/apiConfig';
 
 // Danh sách món ăn 5 sao chuẩn CSDL (Khớp 100% CSDL seedPristineClean.js)
 const DEFAULT_MENU_ITEMS = [
@@ -183,9 +184,7 @@ const MenuManagement = () => {
 
   const fetchMenu = () => {
     setLoading(true);
-    const apiBase = import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace(/\/$/, '')
-      : 'http://localhost:5000/api';
+    const apiBase = `${getApiBase()}/api`;
     let url = `${apiBase}/v1/menu-items`;
     const params = new URLSearchParams();
     if (keyword) params.append('keyword', keyword);
@@ -262,15 +261,13 @@ const MenuManagement = () => {
     setIsModalOpen(true);
   };
 
-  const getApiBase = () => {
-    return import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace(/\/$/, '')
-      : 'http://localhost:5000/api';
+  const getApiBaseUrl = () => {
+    return `${getApiBase()}/api`;
   };
 
   const handleSave = async (e) => {
     e.preventDefault();
-    const apiBase = getApiBase();
+    const apiBase = getApiBaseUrl();
     const url = editingItem
       ? `${apiBase}/v1/menu-items/${editingItem.MenuItemId}`
       : `${apiBase}/v1/menu-items`;

@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+import { getApiBase } from '../config/apiConfig';
+
+const API_BASE_URL = `${getApiBase()}/api`;
 
 const getHeaders = () => {
   const token = localStorage.getItem('hotel_token');
@@ -17,11 +19,8 @@ const safeFetch = async (endpoint, options = {}) => {
     });
     return res;
   } catch (primaryErr) {
-    console.warn(`Primary fetch tới ${primaryUrl} lỗi, đang thử fallback port 5000:`, primaryErr);
-    const fallbackUrl = API_BASE_URL.startsWith('/')
-      ? `http://localhost:5000${API_BASE_URL}${endpoint}`
-      : `http://localhost:5000/api${endpoint}`;
-    return await fetch(fallbackUrl, {
+    console.warn(`Primary fetch tới ${primaryUrl} lỗi:`, primaryErr);
+    return await fetch(`${getApiBase()}/api${endpoint}`, {
       ...options,
       headers: { ...getHeaders(), ...(options.headers || {}) }
     });

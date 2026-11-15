@@ -3,6 +3,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 import GuestSidebar from '../../components/layout/GuestSidebar';
 import GuestHeader from '../../components/layout/GuestHeader';
 import { useAuth } from '../../context/AuthContext';
+import { getApiBase } from '../../config/apiConfig';
 
 const FnbReview = () => {
   const [searchParams] = useSearchParams();
@@ -68,7 +69,7 @@ const FnbReview = () => {
         }
 
         // Fetch served orders
-        let url = 'http://localhost:5000/api/v1/fnb-orders/history?view=guest';
+        let url = `${getApiBase()}/api/v1/fnb-orders/history?view=guest`;
         if (uid) {
           url += `&userId=${uid}`;
         }
@@ -169,7 +170,7 @@ const FnbReview = () => {
         photos: attachedPhotos
       };
 
-      const res = await fetch(`http://localhost:5000/api/v1/fnb-orders/${selectedOrderId}/reviews`, {
+      const res = await fetch(`${getApiBase()}/api/v1/fnb-orders/${selectedOrderId}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

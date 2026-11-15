@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
+import { getApiBase } from '../config/apiConfig';
 
 // Ảnh fallback theo index nếu loại phòng không có hình
 const FALLBACK_IMAGES = [
@@ -17,9 +18,7 @@ function formatPrice(price) {
   return new Intl.NumberFormat('vi-VN').format(price) + '₫';
 }
 
-const ROOM_API_URL = typeof window !== 'undefined' && window.location.port === '3000'
-  ? '/api/loai-phong'
-  : 'http://localhost:5000/api/loai-phong';
+const ROOM_API_URL = `${getApiBase()}/api/loai-phong`;
 
 function Home() {
   const [roomTypes, setRoomTypes] = useState([]);

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AdminLayout from '../../../components/admin/layout/AdminLayout';
+import { getApiBase as getCentralApiBase } from '../../../config/apiConfig';
 
 
 // Danh sách nguyên liệu bếp 5 sao chuẩn CSDL (FEAT-FNB-14)
@@ -20,9 +21,7 @@ const DEFAULT_KITCHEN_INGREDIENTS = [
 
 export default function KitchenInventory() {
   const getApiBase = () => {
-    return import.meta.env.VITE_API_URL 
-      ? import.meta.env.VITE_API_URL.replace(/\/$/, '')
-      : 'http://localhost:5000/api';
+    return `${getCentralApiBase()}/api`;
   };
 
   const [ingredients, setIngredients] = useState([]);

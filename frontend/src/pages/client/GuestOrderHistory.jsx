@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import GuestSidebar from "../../components/layout/GuestSidebar";
 import GuestHeader from "../../components/layout/GuestHeader";
 import { useAuth } from "../../context/AuthContext";
+import { getApiBase } from "../../config/apiConfig";
 
-const API = "http://localhost:5000/api/v1/fnb-orders/history?view=guest";
+const API = `${getApiBase()}/api/v1/fnb-orders/history?view=guest`;
 
 const STATUS_CONFIG = {
   Pending:    { label: "Đang chờ xác nhận",  color: "bg-amber-100 text-amber-800 border-amber-300",  icon: "pending" },

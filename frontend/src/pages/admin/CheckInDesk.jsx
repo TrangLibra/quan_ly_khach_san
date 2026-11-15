@@ -3,6 +3,8 @@ import { useNavigate, useParams, useSearchParams, Link } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext';
 import AdminLayout from '../../components/admin/layout/AdminLayout';
 
+import { getApiBase } from '../../config/apiConfig';
+
 // Trình tải Html5Qrcode thông minh: không dùng static import để tránh lỗi Vite import-analysis
 // khi thành viên khác git pull mà chưa chạy npm install
 let cachedHtml5Qrcode = null;
@@ -52,12 +54,12 @@ async function getHtml5QrcodeClass() {
   });
 }
 
-// Hỗ trợ cả cổng 5000 và qua Proxy /api của Vite theo Spec 8
+// Hỗ trợ API Cloud Render và qua Proxy /api
 const API_ENDPOINTS = [
+  `${getApiBase()}/api/v1/check-ins`,
+  `${getApiBase()}/api/v1/check-in`,
   '/api/v1/check-ins',
   '/api/v1/check-in',
-  'http://localhost:5000/api/v1/check-ins',
-  'http://localhost:5000/api/v1/check-in',
 ];
 
 // Hàm gọi API an toàn, tự động đính kèm Token Authorization
