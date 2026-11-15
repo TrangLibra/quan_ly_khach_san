@@ -666,7 +666,7 @@ const RoomStatusManagement = () => {
               <span>Đồng bộ 4 trạng thái chuẩn PMS: Trống sạch • Đang ở • Chờ dọn dẹp • Đang bảo trì</span>
               <span className="text-outline-variant">•</span>
               <span className="font-mono text-admin-primary font-bold">
-                CSDL MySQL: {stats.total} / {totalInDb} phòng vận hành
+                Hệ Thống Trực Tuyến: {stats.total} / {totalInDb} phòng vận hành
               </span>
             </p>
           </div>
