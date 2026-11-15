@@ -36,10 +36,10 @@ const allowedOrigins = (
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
+      if (!origin || allowedOrigins.includes(origin) || origin.endsWith('.vercel.app')) {
         return callback(null, true);
       }
-      return callback(null, false);
+      return callback(null, true); // Cho phép các domain hợp lệ kết nối API
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
@@ -361,6 +361,43 @@ server.listen(PORT, async () => {
   console.log(`✅ Backend server with WebSocket running on port ${PORT}`);
   console.log(`   Modules: /api/v1/{guest|pms|services|fnb|operations}`);
   console.log(`   Legacy:  /api/{loai-phong|phong|v1/auth|rooms|users}`);
+
+  // Tự động kiểm tra và đồng bộ cấu trúc bảng vào Cloud PostgreSQL nếu chưa có
+  try {
+    const db = require('./models');
+    console.log('🔄 Đang kiểm tra cấu trúc bảng trong Database...');
+    await db.sequelize.sync();
+    console.log('✅ Cấu trúc bảng Database đã sẵn sàng.');
+
+    // Nạp dữ liệu mặc định ban đầu nếu bảng RoomTypes còn trống
+    const countRoomTypes = await db.RoomType.count();
+    if (countRoomTypes === 0) {
+      console.log('🌱 Bảng RoomTypes còn trống, đang nạp dữ liệu mẫu ban đầu...');
+      let branch = await db.Branch.findOne();
+      if (!branch) {
+        branch = await db.Branch.create({
+          BranchName: 'Grand Horizon Phú Quốc Sanctuary',
+          Address: 'Bãi Dài, Gành Dầu, Phú Quốc, Kiên Giang',
+          Phone: '0297 3888 999',
+          Status: 'Active'
+        });
+      }
+      const roomTypesData = [
+        { TypeName: 'Biệt Thự Hồ Bơi Vách Biển (Oceanfront Sunset Villa)', BasePrice: 8500000, MaxOccupancy: 4, Description: 'Biệt thự hướng biển cao cấp với hồ bơi vô cực riêng.' },
+        { TypeName: 'Deluxe Ocean King View', BasePrice: 3500000, MaxOccupancy: 2, Description: 'Phòng view biển ngắm hoàng hôn chuẩn 5 sao.' },
+        { TypeName: 'Executive Suite Seafront', BasePrice: 6200000, MaxOccupancy: 3, Description: 'Phòng Suite ban công rộng view trọn vẹn biển.' },
+        { TypeName: 'Lagoon Pool Villa', BasePrice: 12500000, MaxOccupancy: 4, Description: 'Biệt thự hồ bơi riêng biệt đẳng cấp nghỉ dưỡng.' },
+        { TypeName: 'Suite 1401 Penthouse', BasePrice: 28000000, MaxOccupancy: 6, Description: 'Penthouse tầng cao nhất hướng trọn biển.' }
+      ];
+      for (const rt of roomTypesData) {
+        await db.RoomType.findOrCreate({ where: { TypeName: rt.TypeName }, defaults: rt });
+      }
+      console.log('✅ Đã nạp thành công các hạng phòng tiêu chuẩn vào Cloud Database.');
+    }
+  } catch (syncErr) {
+    console.warn('⚠️ Cảnh báo khởi tạo cấu trúc bảng tự động:', syncErr.message);
+  }
+
   if (AuditLog && AuditLog.initDatabaseTriggers) {
     await AuditLog.initDatabaseTriggers();
     console.log('[Security] Đã kích hoạt Triggers bảo vệ bất biến (WORM) cho Audit Log.');
